@@ -1,0 +1,11 @@
+.form-control {
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    border-bottom: 1px solid var(--food-red);
+    outline: none;
+}

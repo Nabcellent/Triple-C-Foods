@@ -1,0 +1,303 @@
+/** @format */
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+* {
+	font-family: 'Varela Round', cursive;
+	margin: 0 auto;
+	padding: 0;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+body:before {
+	content: '';
+	position: fixed;
+	z-index: -9;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: url(../images/index.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+
+	-webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+	animation-name: animar_fondo_reverse;
+	animation-duration: 30s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+body {
+
+	/*background: #cfd8dc; !* Old browsers *!
+	background: -moz-linear-gradient(-45deg, #cfd8dc 0%, #607d8b 100%, #b0bec5 100%); !* FF3.6-15 *!
+	background: -webkit-linear-gradient(-45deg, #cfd8dc 0%, #607d8b 100%, #b0bec5 100%); !* Chrome10-25,Safari5.1-6 *!
+	background: linear-gradient(135deg, #cfd8dc 0%, #607d8b 100%, #b0bec5 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cfd8dc', endColorstr='#b0bec5', GradientType=1); !* IE6-9 fallback on horizontal gradient *!*/
+}
+
+
+.auth_center {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.cont_login {
+	position: relative;
+	margin-bottom: 10rem;
+}
+.cont_back_info {
+	position: relative;
+	float: left;
+	width: 50rem;
+	height: 280px;
+	overflow: hidden;
+	background-color: #fff;
+	margin-top: 100px;
+	box-shadow: 1px 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+.cont_forms {
+	position: absolute;
+	overflow: hidden;
+	top: 100px;
+	left: 0;
+	width: 25rem;
+	height: 280px;
+	background-color: #eee;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+}
+.cont_forms_active_login {
+	box-shadow: 1px 10px 30px -10px rgba(0, 0, 0, 0.5);
+	height: 420px;
+	top: 20px;
+	left: 0;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+
+}
+.cont_forms_active_sign_up {
+	box-shadow: 1px 10px 30px -10px rgba(0, 0, 0, 0.5);
+	height: 420px;
+	top: 20px;
+	left: 25rem;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+}
+.cont_img_back,
+.cont_img_back_grey {
+	position: absolute;
+	width: 950px;
+	top: -80px;
+	left: -116px;
+}
+.cont_img_back > img,
+.cont_img_back_grey > img {
+	width: 100%;
+	opacity: 0.5;
+	animation-name: animar_fondo;
+	animation-duration: 30s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+
+}
+.cont_forms_active_login > .cont_img_back {
+	top: 0;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+}
+.cont_forms_active_sign_up > .cont_img_back {
+	top: 0;
+	left: -435px;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+}
+
+
+.cont_info_log_sign_up {
+	position: absolute;
+	height: 280px;
+	top: 100px;
+	z-index: 1;
+}
+.col_md_sign_up,
+.col_md_login {
+	position: relative;
+	float: left;
+	width: 50%;
+}
+.col_md_login > h2 {
+	font-weight: 400;
+	margin-top: 70px;
+	color: #757575;
+}
+.col_md_login > p {
+	font-weight: 400;
+	margin-top: 15px;
+	width: 80%;
+	color: #37474F;
+}
+.btn_login {
+	background-color: #26C6DA;
+	border: none;
+	padding: 10px;
+	width: 200px;
+	border-radius: 3px;
+	box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.4);
+	color: #fff;
+	margin-top: 10px;
+	cursor: pointer;
+}
+.cont_ba_opcitiy > h2 {
+	font-weight: 400;
+	color: #fff;
+}
+.cont_ba_opcitiy > p {
+	font-weight: 400;
+	margin-top: 15px;
+	color: #fff;
+}
+
+/* ----------------------------------
+background text
+------------------------------------
+ */
+.cont_ba_opcitiy {
+	position: relative;
+	background-color: rgba(80, 100, 110, 0.65);
+	width: 80%;
+	border-radius: 3px;
+	margin-top: 60px;
+	padding: 15px 0;
+}
+.btn_sign_up {
+	background-color: #ef5350;
+	border: none;
+	padding: 10px;
+	width: 200px;
+	border-radius: 3px;
+	box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.4);
+	color: #fff;
+	margin-top: 10px;
+	cursor: pointer;
+}
+.cont_forms_active_sign_up {
+	z-index: 2;
+}
+
+.sign_up_form,
+.login_form {
+	position: absolute;
+	opacity: 0;
+	display: none;
+	width: 100%;
+	height: 100%;
+	padding: 2rem;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+}
+.sign_up_form form,
+.login_form form {
+	height: 100%;
+	display: flex;
+}
+.sign_up_form .form-group,
+.login_form .form-group {
+	margin: auto;
+}
+
+.cont_forms_active_login {
+	z-index: 2;
+}
+.cont_forms_active_login > .login_form {
+}
+.login_form h2,
+.sign_up_form h2 {
+	margin: 1rem 0;
+	font-weight: 400;
+	color: #757575;
+}
+.sign_up_form input,
+.login_form input {
+	text-align: left;
+	border: none;
+	color: #757575;
+}
+.login_form > a,
+.sign_up_form > a {
+	color: #757575;
+	position: relative;
+	float: left;
+}
+
+
+/*-----------------------------------------------------  KEY FRAMES  -----------------------------------------------------*/
+@-webkit-keyframes animar_fondo {
+	from {
+		-webkit-transform: scale(1) translate(0px);
+		-moz-transform: scale(1) translate(0px);
+		-ms-transform: scale(1) translate(0px);
+		-o-transform: scale(1) translate(0px);
+		transform: scale(1) translate(0px);
+	}
+	to {
+		-webkit-transform: scale(1.5) translate(50px);
+		-moz-transform: scale(1.5) translate(50px);
+		-ms-transform: scale(1.5) translate(50px);
+		-o-transform: scale(1.5) translate(50px);
+		transform: scale(1.5) translate(50px);
+	}
+}
+@-webkit-keyframes animar_fondo_reverse {
+	from {
+		-webkit-transform: scale(1.5) translate(50px);
+		-moz-transform: scale(1.5) translate(50px);
+		-ms-transform: scale(1.5) translate(50px);
+		-o-transform: scale(1.5) translate(50px);
+		transform: scale(1.5) translate(50px);
+	}
+	to {
+		-webkit-transform: scale(1) translate(0px);
+		-moz-transform: scale(1) translate(0px);
+		-ms-transform: scale(1) translate(0px);
+		-o-transform: scale(1) translate(0px);
+		transform: scale(1) translate(0px);
+	}
+}
+@keyframes identifier {
+	from {
+		-webkit-transform: scale(1);
+		-moz-transform: scale(1);
+		-ms-transform: scale(1);
+		-o-transform: scale(1);
+		transform: scale(1);
+	}
+	to {
+		-webkit-transform: scale(1.5);
+		-moz-transform: scale(1.5);
+		-ms-transform: scale(1.5);
+		-o-transform: scale(1.5);
+		transform: scale(1.5);
+	}
+}
+

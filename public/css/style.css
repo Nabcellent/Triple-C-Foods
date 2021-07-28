@@ -1,0 +1,397 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+:root {
+    --body-color: rgba(230, 230, 255, .7);
+    --light-gold: rgb(228, 175, 42);
+    --food-red: #990000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Varela Round', sans-serif;
+    font-size: large;
+    scroll-behavior: smooth;
+}
+body {
+    background-color: var(--body-color);
+}
+.scroll-to-top {
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid var(--light-gold);
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    display: none;
+}
+
+/*=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!  GLOBAL  =============*/
+.dropdown-menu {
+    font-size: .7rem;
+}
+
+
+
+/*=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!  NAVIGATION  =============*/
+.navbar {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.6));
+    font-size: 12pt;
+    box-shadow: 0 .5rem .5rem rgba(0, 0, 0, .2);
+}
+nav .navbar-nav .nav-item > a {
+    letter-spacing: 1px;
+}
+.navbar-brand img {
+    height: 2rem;
+    border-radius: 50%;
+    margin-right: .5rem;
+}
+.nav-item {
+    padding: 0 10px;
+}
+.nav-link {
+    color: white!important;
+    transition: transform .2s;
+}
+.nav-link.active:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--food-red);
+}
+.nav-link.active,
+.nav-link:hover {
+    transform: scale(1.1);
+    color: maroon!important;
+}
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(120, 0, 0, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+.custom-toggler.navbar-toggler {
+    border-color: rgba(0, 0, 0, 0.5);
+    transform: scale(0.7);
+    transition: transform .3s;
+}
+.custom-toggler.navbar-toggler:hover {
+    border-color: rgba(0, 0, 0, 0.5);
+    transform: scale(.8);
+}
+
+
+/*=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!  CAROUSEL  =============*/
+.carousel-item img {
+    object-fit: cover;
+}
+/*---Change Carousel Transition Speed --*/
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+    transition: transform 2s ease;
+}
+.carousel-indicators div {
+    width: 50px;
+    height: 5px;
+    margin: 0 5px;
+}
+/*-- Carousel Content --*/
+.carousel-caption {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+}
+.carousel .bg-dark {
+    background-color: rgba(0, 0, 0, .7)!important;
+    border-radius: 1cm;
+    padding: 1rem;
+}
+.carousel .bg-white {
+    background-color: rgba(255, 255, 255, .7)!important;
+    border-radius: 1cm;
+    padding: 1rem;
+}
+.carousel-caption h3 {
+    font-size: 2.3rem;
+    font-weight: 300;
+}
+p.lead {
+    font-size: 1.4rem;
+}
+
+
+/*=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!  SOCIAL MEDIA STICKY BAR  =============*/
+.jumbotron {
+    height: 4rem;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.6));
+    margin-bottom: 0;
+    border-radius: 0;
+    box-shadow: 0 .5rem .5rem rgba(0, 0, 0, .1);
+}
+ul.social {
+    list-style-type: none;
+    display: flex;
+    padding: 0;
+    margin: 0 auto;
+}
+ul.social li {
+    margin: 0 auto;
+}
+.jumbotron i {
+    font-size: 2rem;
+    margin: 0 1rem;
+}
+.jumbotron i:hover {
+    color: grey!important;
+}
+
+
+/*=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!  MAIN PAGE CONTENT  =============*/
+.main_page_content ol {
+    list-style: circle;
+    width: 100%;
+    margin: 0;
+    overflow: auto;
+    padding: 1rem;
+}
+.main_page_content .collapsible {
+    cursor: pointer;
+}
+.main_page_content .collapsible a:hover {
+    color: rgb(0, 75, 255);
+    text-decoration: none;
+}
+.main_page_content .menu {
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    padding: 1rem;
+}
+
+.swiper {
+    box-shadow: 0 .5rem .5rem rgba(0, 0, 0, .2);
+}
+.swiper-container {
+    width: 100%;
+    padding-top: .2rem;
+    padding-bottom: .5rem;
+}
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 300px;
+    height: 300px;
+    box-shadow: 0 .3rem .3rem rgba(0, 0, 0, .2);
+}
+/*============= AFTER SWIPERS =============*/
+.fa-square {
+    opacity: .10;
+}
+.chef-wording img {
+    max-height: 30rem;
+}
+
+.fixed-background {
+    padding: 12rem 0;
+    border-top: .05rem solid black;
+    border-bottom: .05rem solid black;
+    margin-bottom: 2px;
+    height: 75vh; /*-- remove --*/
+}
+.testimonials img {
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+/*=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!  SUBSCRIBE  =============*/
+section#three .container-fluid {
+    padding: 3rem;
+}
+section#three img {
+    width: 100%;
+    object-fit: cover;
+    -webkit-animation: rotation 17s infinite linear;
+}
+section#three .subscribe {
+    padding: 4rem;
+    border-left: 2px solid var(--light-gold);
+}
+section#three .subscribe h2 {
+    text-align: right;
+}
+section#three .subscribe button {
+    margin-top: .3rem;
+}
+section#three .subscribe h4 {
+    text-align: center;
+    color: var(--light-gold);
+}
+/*@-webkit-keyframes rotation {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(359deg);
+    }
+}*/
+
+
+
+/*=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!  PRODUCTS  =============*/
+#products .chef .card {
+    height: 20rem;
+}
+#products .chef .card img {
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+    filter: brightness(50%);
+    transition: all .4s;
+}
+#products .chef .card:hover img {
+    filter: brightness(100%);
+}
+#products .chef .card-img-overlay {
+    transition: all .4s;
+    height: auto;
+}
+#products .chef .card:hover .card-img-overlay {
+    opacity: 0;
+}
+#products .chicken .card-img-top {
+    height: 15rem;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+
+/*=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!  FOOTER  =============*/
+footer#footer {
+    padding: .3rem 0;
+    background: rgba( 77, 77, 77, 0.55 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+footer#footer .info {
+    padding: 0 10rem;
+}
+footer#footer .info ul {
+    background-color: lightgray;
+    margin: 2rem 0;
+    list-style: none;
+    display: flex;
+    padding: 1rem 2rem;
+}
+footer#footer .info ul li {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-decoration: none;
+}
+
+/*.footer {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 0;
+}
+.footer .container {
+    padding: 0!important;
+}
+.footer img {
+    border-radius: 50%;
+    height: 2rem;
+    margin: 1rem auto;
+}
+footer p {
+    font-size: 10pt;
+    margin: 0 0 .7rem;
+}
+.footer a {
+    color: black;
+    text-decoration: none;
+}
+.footer a:hover {
+    color: rgba(140, 0, 0, 0.6);
+}
+*/
+
+.socket {
+    background-color: #222222;
+    border-top: .1rem solid gray;
+}
+.socket p {
+    color: #40474e;
+    font-size: 10pt;
+    margin-bottom: .3rem;
+}
+
+
+
+/*=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!  FIXES  =============*/
+/*-- Bootstrap Mobile Gutter Fix --*/
+.row, .container-fluid {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/*-- Fixed Background Image --*/
+.fixed-background {
+    position: relative;
+    width: 100%;
+    z-index: 1000!important;
+}
+.fixed-wrap {
+    clip: rect(0, auto, auto, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -999 !important;
+}
+.fixed {
+    z-index: -999!important;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: no-repeat, 50% 50%, linear-gradient(132deg, rgba(45, 73, 157, .3), var(--body-color), rgba(255, 69, 0, .3));
+    background-size: 400% 400%;
+    animation: Gradient 15s ease infinite;
+}
+@keyframes Gradient {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
