@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -13,7 +14,10 @@ class UserController extends Controller
      * @return Response
      */
     public function index(): Response {
-        return response()->view('admin.users');
+        $data['users'] = User::where('is_admin', '!=', 7)->latest()->get();
+
+        //dd($data);
+        return response()->view('admin.users', $data);
     }
 
     /**
@@ -29,7 +33,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
@@ -62,8 +66,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param  int    $id
      * @return Response
      */
     public function update(Request $request, $id)

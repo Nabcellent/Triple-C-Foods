@@ -1,59 +1,82 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.guest')
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+@section('content')
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+    <!-- Masthead-->
+    <div class="masthead register">
+        <div class="masthead-content text-white">
+            <div class="container-fluid px-4 px-lg-0">
+                <h1 class="fst-italic lh-1 mb-4">Sign Up</h1>
+                <p class="mb-5">
+                    We're working hard to finish the development of this site. Sign up below to receive updates and to be notified when we
+                    launch!
+                </p>
+                @if($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show py-1" role="alert">
+                        <div class="row align-items-center">
+                            <div class="col-auto pe-0">
+                                <strong>
+                                    <svg class="bi flex-shrink-0" width="24" height="24" role="img" aria-label="Warning:">
+                                        <use xlink:href="#exclamation-triangle-fill"/>
+                                    </svg>
+                                </strong>
+                            </div>
+                            <div class="col">
+                                {{$errors->first()}}
+                                <button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <form method="POST" action="{{ route('register') }}">
+                    @csrf
+                    <div class="form-group mb-3">
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" aria-label
+                               value="{{ old('name') }}" placeholder="Enter your full name" required autocomplete="name" autofocus>
+                        @error('name')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" aria-label
+                               value="{{ old('email') }}" placeholder="Enter your email address" required autocomplete="email">
+                        @error('email')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                    <div class="form-group row mb-3">
+                        <div class="col">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"
+                                   placeholder="Enter new password" aria-label required autocomplete="new-password">
+                            @error('password')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                        <div class="col">
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                                   placeholder="Confirm password" required aria-label autocomplete="new-password">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-0 justify-content-between align-items-center">
+                        <div class="col-auto">
+                            <a class="link-warning" href="{{ route('login') }}">{{ __('Sign In') }}</a>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <button type="submit" class="btn btn-dark col-12">{{ __('Sign Up') }} <i class="fas fa-user-plus"></i></button>
+                        </div>
+                    </div>
+                </form>
             </div>
+        </div>
+    </div>
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+    <!-- Social Icons-->
+    <div class="social-icons register">
+        <div class="d-flex flex-row flex-lg-column justify-content-center align-items-center h-100 mt-3 mt-lg-0">
+            <a class="btn btn-dark m-3" href="#!"><i class="fab fa-twitter"></i></a>
+            <a class="btn btn-dark m-3" href="#!"><i class="fab fa-facebook-f"></i></a>
+            <a class="btn btn-dark m-3" href="#!"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+@endsection
