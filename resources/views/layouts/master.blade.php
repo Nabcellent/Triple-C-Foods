@@ -8,23 +8,7 @@
     <title>{{ config('app.name', 'FoodCellent') }} - @yield('title')</title>
     <link rel="icon" type="image/jpg" sizes="256x256" href="{{ asset('favicon.ico') }}">
 
-    {{--    BOOTSTRAP    --}}
-    <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
-
-    {{--    TAILWIND    --}}
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    {{--    FONTAWESOME    --}}
-    <link rel="stylesheet" href="{{ asset('css/fontawesome/css/all.min.css') }}">
-
-    {{--    SWIPER    --}}
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
-    {{--    CUSTOM    --}}
-    <link rel="stylesheet" href="{{ asset('css/global.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    @include('partials.links')
 
     {{--    JQUERY    --}}
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
@@ -42,14 +26,6 @@
 
 <script src="{{ asset('js/particles/particles.js') }}"></script>
 
-{{--    BOOTSTRAP    --}}
-<script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
-
-{{--    SWIPER    --}}
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-{{--    CUSTOM    --}}
-<script src="{{ asset('js/index.js') }}"></script>
-
+@include('partials.scripts')
 </body>
 </html>

@@ -6,7 +6,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} - Auth</title>
     <link rel="icon" type="image/jpg" sizes="256x256" href="{{ asset('favicon.ico') }}">
 
     <!-- Font Awesome icons (free version)-->

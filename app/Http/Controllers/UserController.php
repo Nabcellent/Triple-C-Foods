@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -78,11 +79,14 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(int $id): RedirectResponse {
+        if(User::destroy($id)) {
+            return back()->with('toast_success', 'User deleted.');
+        } else {
+            return returnToastError('unable to delete user', 'Unable to delete user');
+        }
     }
 }

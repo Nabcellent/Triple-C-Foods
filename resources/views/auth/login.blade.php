@@ -8,7 +8,7 @@
                 <h1 class="fst-italic lh-1 mb-4">Sign In</h1>
                 <p class="mb-5">Sign in below to get the best one of bon appetites' favourites!</p>
                 @if($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show py-1" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show   py-1" role="alert">
                         <div class="row align-items-center">
                             <div class="col-auto pe-0">
                                 <strong>

@@ -33,6 +33,7 @@ Route::prefix('/admin')->middleware(['auth'])->name('admin.')->group(function() 
 
     Route::prefix('/users')->name('users.')->group(function() {
         Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::get('/destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
     });
 
     Route::prefix('/orders')->name('orders.')->group(function() {
