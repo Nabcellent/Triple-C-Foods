@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -17,8 +20,7 @@ class UserController extends Controller
     public function index(): Response {
         $data['users'] = User::where('is_admin', '!=', 7)->latest()->get();
 
-        //dd($data);
-        return response()->view('admin.users', $data);
+        return response()->view('admin.users.index', $data);
     }
 
     /**
@@ -61,19 +63,52 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = [
+            'user' => User::find($id),
+        ];
+
+        return response()->view('admin.users.edit', $data);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource profile in storage.
      *
      * @param Request $request
-     * @param  int    $id
-     * @return Response
+     * @param int     $id
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function updateProfile(Request $request, int $id): RedirectResponse {
+        $request->validate(['name' =>'required|string', 'email' => ['required', 'email', Rule::unique('users')->ignore($id)]]);
+
+        try {
+            User::find($id)->update($request->all());
+
+            return updateOk('Profile updated successfully');
+        } catch(Exception $e) {
+            return toastError($e->getMessage(), 'Unable to update password');
+        }
+    }
+
+    /**
+     * Update the specified resource password in storage.
+     *
+     * @param Request $request
+     * @param int     $id
+     * @return RedirectResponse
+     */
+    public function updatePassword(Request $request, int $id): RedirectResponse {
+        $request->validate(
+            ['current_password' => 'current_password', 'password' => 'required|confirmed'],
+            ['current_password' => 'The current password is incorrect']
+        );
+
+        try {
+            User::find($id)->update(['password' => Hash::make($request->input('password'))]);
+
+            return updateOk('Password changed successfully');
+        } catch(Exception $e) {
+            return toastError($e->getMessage(), 'Unable to change password');
+        }
     }
 
     /**
@@ -86,7 +121,7 @@ class UserController extends Controller
         if(User::destroy($id)) {
             return back()->with('toast_success', 'User deleted.');
         } else {
-            return returnToastError('unable to delete user', 'Unable to delete user');
+            return toastError('unable to delete user', 'Unable to delete user');
         }
     }
 }

@@ -297,7 +297,7 @@
                                             </td>
                                             <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{{ $user->is_admin ? 'Admin' : 'Customer' }}</td>
                                             <td class="px-6 py-3 whitespace-nowrap text-right text-sm font-medium">
-                                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900">View</a>
                                             </td>
                                         </tr>
                                     @endforeach

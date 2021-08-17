@@ -1,0 +1,57 @@
+:root {
+    --body-color: rgba(230, 230, 255, .7);
+    --light-gold: rgb(228, 175, 42);
+    --food-red: #990000;
+}
+
+body {
+    background-color: rgba(100, 200, 255, .7);
+}
+
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: no-repeat, 50% 50%, linear-gradient(132deg, rgba(45, 73, 157, .3), var(--body-color), rgba(255, 69, 0, .3));
+    background-size: 400% 400%;
+    animation: Gradient 15s ease infinite;
+}
+
+label {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+    margin-bottom: .5rem;
+    color: rgb(55, 65, 81);
+}
+
+textarea,
+input {
+    appearance: none;
+    border: none;
+    width: 100%;
+    padding: .75rem 1rem;
+    border-radius: .25rem;
+    background-color: rgb(229, 231, 235) !important;
+    color: rgb(55, 65, 81);
+}
+
+input:focus {
+    outline: none;
+    background-color: #fff;
+}
+
+@keyframes Gradient {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}

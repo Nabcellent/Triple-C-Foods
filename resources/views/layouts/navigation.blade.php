@@ -15,12 +15,16 @@
                     <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.kitchen.index')" :active="request()->routeIs('admin.kitchen.*')">
+                        {{ __('Kitchen') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                         {{ __('Users') }}
                     </x-nav-link>
                     <x-nav-link :href="route('admin.orders.index')" :active="request()->routeIs('admin.orders.*')">
                         {{ __('Orders') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('home')">{{ __('Shop') }}</x-nav-link>
                 </div>
             </div>
 

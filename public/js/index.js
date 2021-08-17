@@ -1,15 +1,11 @@
 (() => {
     window.addEventListener('scroll', function () {
-        console.log('ready');
         if(document.getElementsByTagName('html')[0].scrollTop > 1000) {
-            document.querySelector('.scroll-to-top').style.display = 'block';
+            document.querySelector('.scroll-to-top').style.display = 'flex';
         } else {
             document.querySelector('.scroll-to-top').style.display = 'none';
         }
     })
-    $( document ).scroll(function() {
-        console.log('ready');
-    });
 })();
 
 const swiper = new Swiper('.swiper-container', {

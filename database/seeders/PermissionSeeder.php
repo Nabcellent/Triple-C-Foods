@@ -51,6 +51,7 @@ class PermissionSeeder extends Seeder {
 
         // create Super Admin
         User::create([
+            'is_admin' => 7,
             'name' => 'Re.d_beard',
             'email' => 'michael.nabangi@strathmore.edu',
             'password' => Hash::make('M1gu3l.!'),

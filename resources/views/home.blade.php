@@ -356,6 +356,6 @@
         </div>
     </section>
 
-    <a href="#navigation-sticky" class="scroll-to-top" title="Scroll To Top"></a>
+    <a href="#navigation-sticky" class="scroll-to-top" title="Scroll To Top"><i class="fas fa-arrow-circle-up"></i></a>
 
 @endsection

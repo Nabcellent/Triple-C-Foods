@@ -3,9 +3,16 @@
 use Illuminate\Http\RedirectResponse;
 
 function isAdmin():bool {
-    return Auth::user()->is_admin;
+    return Auth::user()->is_admin || isRed();
+}
+function isRed():bool {
+    return Auth::user()->is_admin === 7;
 }
 
+function createOk($model = null, $routeName = null, $msg = 'Successfully created!'): RedirectResponse {
+    $msg = !$model ?: $model . ' ' . $msg;
+    return goWithSuccess($routeName, __($msg));
+}
 function deleteOk($msg = 'Successfully deleted.', $routeName = null): RedirectResponse {
     return goWithSuccess($routeName, __($msg));
 }
@@ -18,15 +25,14 @@ function goWithSuccess($to, $msg): RedirectResponse {
     return $route->with('toast_success', $msg);
 }
 function goWithDanger($to = 'dashboard', $msg = NULL): RedirectResponse {
-    $msg = $msg ? $msg : __('msg.rnf');
+    $msg = $msg ?: __('Something went wrong!');
     return goToRoute($to)->with('sweet_danger', $msg);
 }
 
-function returnToastError($serverError, $clientMessage): RedirectResponse {
+function toastError($serverError, $clientMessage): RedirectResponse {
     Log::error($serverError);
 
-    return back()->withInput()
-        ->with('toast_error', __($clientMessage));
+    return back()->withInput()->with('toast_error', __($clientMessage));
 }
 
 function goToRoute($goto): RedirectResponse {

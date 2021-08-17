@@ -1,3 +1,5 @@
+{{--    PARTICLES    --}}
+<script src="{{ asset('js/particles/particles.js') }}"></script>
 
 {{--    BOOTSTRAP    --}}
 <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
@@ -10,6 +12,8 @@
 
 {{--    TOASTIFY    --}}
 <script src="{{ asset('vendor/toastify/toastify.js') }}"></script>
+
+@yield('scripts')
 
 {{--    CUSTOM    --}}
 <script src="{{ asset('js/index.js') }}"></script>

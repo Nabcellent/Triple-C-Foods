@@ -20,7 +20,6 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
         'title',
         'image',
         'description',
@@ -31,10 +30,6 @@ class Product extends Model
     /**
      * RELATIONSHIP FUNCTIONS
      */
-    public function user(): BelongsTo {
-        return $this->belongsTo(User::class);
-    }
-
     public function cart(): HasMany {
         return $this->hasMany(Cart::class);
     }

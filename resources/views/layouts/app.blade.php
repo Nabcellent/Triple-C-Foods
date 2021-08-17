@@ -19,11 +19,16 @@
     {{--    TOASTIFY    --}}
     <link rel="stylesheet" href="{{ asset('vendor/toastify/toastify.css') }}">
 
+    {{--    CUSTOM CSS    --}}
+    <link rel="stylesheet" href="{{ asset('css/admin/style.css') }}">
+
     {{--    JQUERY    --}}
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 </head>
 <body class="font-sans antialiased">
-<div class="max-w-7xl mx-auto min-h-screen bg-gray-100 shadow">
+<div id="particles-js"></div>
+
+<div class="max-w-7xl mx-auto min-h-screen bg-gray-100 shadow relative">
 @include('layouts.navigation')
 
 <!-- Page Heading -->
@@ -37,8 +42,8 @@
     <main>
         {{ $slot }}
     </main>
-
-    @include('partials.scripts')
 </div>
+
+@include('partials.scripts')
 </body>
 </html>

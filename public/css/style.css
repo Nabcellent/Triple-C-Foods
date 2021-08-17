@@ -19,12 +19,17 @@ html, body {
     scroll-behavior: smooth;
 }
 body {
-    background-color: var(--body-color);
+    background-color: rgba(100, 200, 255, .7);
 }
 .scroll-to-top {
-    border-left: 25px solid transparent;
-    border-right: 25px solid transparent;
-    border-bottom: 50px solid var(--light-gold);
+    transition: all .3s ease;
+    color: var(--food-red);
+    justify-content: center;
+    align-items: center;
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 50%;
+    background-color: var(--light-gold);
     position: fixed;
     bottom: 1rem;
     right: 1rem;
