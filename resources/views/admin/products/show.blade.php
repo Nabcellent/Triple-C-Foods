@@ -68,10 +68,10 @@
                             <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
                                 <div class="flex items-end justify-end h-56 w-full bg-cover"
                                      style="background-image: url('{{ asset('images/kuku/' . $otherProduct->image) }}')">
-                                    <button
+                                    <a href="{{ route('admin.kitchen.show', ['id' => $otherProduct->id]) }}"
                                         class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                                         <i class="fas fa-eye" title="View Product"></i>
-                                    </button>
+                                    </a>
                                 </div>
                                 <div class="px-5 py-3">
                                     <h3 class="text-gray-700 uppercase">{{ $otherProduct->title }}</h3>
