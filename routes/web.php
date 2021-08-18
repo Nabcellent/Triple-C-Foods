@@ -43,7 +43,7 @@ Route::prefix('/admin')->middleware(['auth'])->name('admin.')->group(function() 
         Route::get('/', [AdminProductController::class, 'index'])->name('index');
         Route::get('/create', [AdminProductController::class, 'create'])->name('create');
         Route::post('/store', [AdminProductController::class, 'store'])->name('store');
-        Route::get('/show', [AdminProductController::class, 'show'])->name('show');
+        Route::get('/show/{id}', [AdminProductController::class, 'show'])->name('show');
         Route::get('/edit/{id}', [AdminProductController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [AdminProductController::class, 'update'])->name('update');
         Route::get('/destroy/{id}', [AdminProductController::class, 'destroy'])->name('destroy');

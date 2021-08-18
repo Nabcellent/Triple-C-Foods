@@ -1,11 +1,13 @@
 (() => {
-    window.addEventListener('scroll', function () {
-        if(document.getElementsByTagName('html')[0].scrollTop > 1000) {
-            document.querySelector('.scroll-to-top').style.display = 'flex';
-        } else {
-            document.querySelector('.scroll-to-top').style.display = 'none';
-        }
-    })
+    if($('.scroll-to-top').length) {
+        window.addEventListener('scroll', function () {
+            if(document.getElementsByTagName('html')[0].scrollTop > 1000) {
+                document.querySelector('.scroll-to-top').style.display = 'flex';
+            } else {
+                document.querySelector('.scroll-to-top').style.display = 'none';
+            }
+        })
+    }
 })();
 
 const swiper = new Swiper('.swiper-container', {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -61,12 +62,20 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return RedirectResponse|Response
      */
-    public function show($id)
-    {
-        //
+    public function show(int $id): Response|RedirectResponse {
+        try {
+            $data = [
+                'product' => Product::findOrFail($id),
+                'otherProducts' => Product::where('id', '<>', $id)->latest()->take(4)->get()
+            ];
+
+            return response()->view('admin.products.show', $data);
+        } catch(Exception $e) {
+            return toastError($e->getMessage(), 'Unable to find product');
+        }
     }
 
     /**
