@@ -18,10 +18,11 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      *
+     * @param Request $request
      * @return View
      */
-    public function create(): View {
-        return view('auth.register');
+    public function create(Request $request): View {
+        return view('auth.register', ['isAdmin' => $request->has('user')]);
     }
 
     /**
@@ -41,6 +42,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
+            'is_admin' => $request->input('is_admin') ?? false,
             'password' => Hash::make($request->input('password')),
         ])->assignRole('customer');
 

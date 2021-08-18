@@ -62,7 +62,7 @@ nav .navbar-nav .nav-item > a {
 }
 .nav-link {
     color: white!important;
-    transition: transform .2s;
+    transition: all .3s ease;
 }
 .nav-link.active:after {
     content: '';
@@ -73,7 +73,7 @@ nav .navbar-nav .nav-item > a {
 }
 .nav-link.active,
 .nav-link:hover {
-    transform: scale(1.1);
+    transform: scale(1.02);
     color: maroon!important;
 }
 .custom-toggler .navbar-toggler-icon {

@@ -4,6 +4,10 @@
 
     <!-- Masthead-->
     <div class="masthead register">
+        <div class="position-absolute link-light" style="top: 1rem; right: 1rem">
+            <a href="{{ route('register', ['user' => 'admin']) }}">Admin</a>
+        </div>
+
         <div class="masthead-content text-white">
             <div class="container-fluid px-4 px-lg-0">
                 <h1 class="fst-italic lh-1 mb-4">Sign Up</h1>
@@ -30,6 +34,7 @@
                 @endif
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
+                    <input type="hidden" name="is_admin" value="{{ $isAdmin ?? 'false' }}">
                     <div class="form-group mb-3">
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" aria-label
                                value="{{ old('name') }}" placeholder="Enter your full name" required autocomplete="name" autofocus>

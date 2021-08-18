@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -71,34 +72,58 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(int $id): Response {
+        $data = ['product' => Product::find($id)];
+
+        return response()->view('admin.products.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  int    $id
-     * @return Response
+     * @param StoreProductRequest $request
+     * @param int                 $id
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(StoreProductRequest $request, int $id): RedirectResponse {
+        $data = $request->all();
+
+        try {
+            $product = Product::find($id);
+
+            if($request->hasFile('image')) {
+                $file = $request->file('image');
+                $data['image'] = "foo_" . time() . ".{$file->guessClientExtension()}";
+                $file->move(public_path('images/kuku'), $data['image']);
+
+                if($product->image && file_exists(public_path('images/kuku/' . $product->image)))
+                    unlink(public_path('images/kuku/' . $product->image));
+            }
+
+            DB::transaction(function() use ($product, $data) {
+                $product->update($data);
+            });
+
+            return updateOk('Product updated successfully', 'admin.kitchen.index');
+        } catch(Throwable $e) {
+            return toastError($e->getMessage(), 'Unable to create new product');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(int $id): RedirectResponse {
+        if(Product::destroy($id)) {
+            return back()->with('toast_success', 'Product deleted.');
+        } else {
+            return toastError('unable to delete product', 'Unable to delete product');
+        }
     }
 }

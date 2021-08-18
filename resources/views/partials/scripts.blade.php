@@ -15,6 +15,8 @@
 
 @yield('scripts')
 
+<script src="{{ asset('js/app.js') }}" defer></script>
+
 {{--    CUSTOM    --}}
 <script src="{{ asset('js/index.js') }}"></script>
 

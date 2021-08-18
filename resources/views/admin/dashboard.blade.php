@@ -42,7 +42,7 @@
                     <div class="flex flex-wrap">
                         <div class="flex-shrink-0 w-full flex-1 px-2">
                             <h5 class="text-gray-500">Today's users</h5>
-                            <h4>+173</h4>
+                            <h4>+{{ $todaysUsers }}</h4>
                         </div>
                         <div class="flex-shrink-0 w-full flex-1 px-2 items-center">
                             <div class="p-2 text-red-900 text-right">
@@ -57,7 +57,7 @@
                     <div class="flex flex-wrap">
                         <div class="flex-shrink-0 w-full flex-1 px-2">
                             <h5 class="text-gray-500">Today's stock</h5>
-                            <h4>300</h4>
+                            <h4>{{ $totalStock }}</h4>
                         </div>
                         <div class="flex-shrink-0 w-full flex-1 px-2 items-center">
                             <div class="p-2 text-red-900 text-right">

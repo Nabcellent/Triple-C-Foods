@@ -18,7 +18,7 @@ class UserController extends Controller
      * @return Response
      */
     public function index(): Response {
-        $data['users'] = User::where('is_admin', '!=', 7)->latest()->get();
+        $data['users'] = User::where('is_admin', '!=', 7)->latest()->paginate(10);
 
         return response()->view('admin.users.index', $data);
     }
@@ -58,11 +58,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
-    public function edit($id)
-    {
+    public function edit(int $id): Response {
         $data = [
             'user' => User::find($id),
         ];

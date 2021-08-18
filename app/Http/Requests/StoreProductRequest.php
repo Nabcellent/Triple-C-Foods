@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProductRequest extends FormRequest
 {
@@ -25,7 +26,9 @@ class StoreProductRequest extends FormRequest
         return [
             'title' => 'required',
             'price' => 'required|numeric',
-            'image' => 'required|mimes:jpg,png,jpeg|max:5048',
+            'image' => [Rule::requiredIf(function() {
+                return $this->routeIs('admin.kitchen.store');
+            }), 'mimes:jpg,png,jpeg', 'max:5048'],
         ];
     }
 }
