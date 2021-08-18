@@ -11,7 +11,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <ul class="collapse navbar-collapse" id="navbar_responsive">
+            <div class="collapse navbar-collapse" id="navbar_responsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="{{ route('home') }}" class="nav-link {{ !Route::is('home') ?: 'active' }}">Home</a></li>
                     <li class="nav-item">
@@ -25,7 +25,8 @@
                             @php $total += $details['price'] * $details['quantity'] @endphp
                         @endforeach
                         <a href="#" class="nav-link dropdown-toggle {{ !Route::is('cart.*') ?: 'active' }}" data-bs-toggle="dropdown" title="Cart">
-                            Cart <i class="fab fa-opencart"><span class="position-absolute top-0 font-size-10">{{ count((array) session('cart')) }}</span></i>
+                            Cart <i class="fab fa-opencart"><span
+                                    class="position-absolute top-0 font-size-10">{{ count((array) session('cart')) }}</span></i>
                             <span class="font-size-10">{{ $total }}</span>
                         </a>
                         @if(session('cart'))
@@ -75,7 +76,7 @@
                         </form>
                     </li>
                 </ul>
+            </div>
         </div>
-</div>
-</nav>
-<!-- End Navigation -->
+    </nav>
+    <!-- End Navigation -->

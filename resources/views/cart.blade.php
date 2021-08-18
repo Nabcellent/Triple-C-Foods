@@ -5,7 +5,7 @@
 @endsection
 @section('content')
 
-    <div id="cart" class="container p-10">
+    <div id="cart" class="container p-10" style="min-height: 75vh">
         <!--Section: Block Content-->
         <section>
             <!--Grid row-->

@@ -49,7 +49,7 @@
                         <div class="card product-box">
                             <div class="product-img">
                                 <div class="product-ribbon badge bg-warning"> Trending </div>
-                                <div class="product-wishlist"><a href="#"> <i class="fas fa-heart"></i> </a></div>
+                                <div class="product-wishlist"><a href="javascript:void(0)"> <i class="fas fa-heart"></i> </a></div>
                                 <img src="{{ asset('images/kuku/' . $product->image) }}" class="card-img-top" alt="...">
                             </div>
                             <div class="card-body text-center product-content py-5">

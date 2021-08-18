@@ -30,7 +30,7 @@ Route::prefix('/')->middleware('auth')->group(function() {
 
     Route::prefix('/cart')->name('cart.')->group(function() {
         Route::get('/', [CartController::class, 'index'])->name('index');
-        Route::get('/store/{id}', [CartController::class, 'store'])->name('store');
+        Route::post('/store/{id}', [CartController::class, 'store'])->name('store');
         Route::patch('/update', [CartController::class, 'update'])->name('update');
         Route::delete('/destroy', [CartController::class, 'destroy'])->name('destroy');
     });

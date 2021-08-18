@@ -7,7 +7,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
+                        <form action="{{ route('cart.store', ['id' => $product->id]) }}" method="POST" class="row">
+                            @csrf
                             <div class="col-xl-5">
                                 <div class="product-detail">
                                     <div class="row">
@@ -41,15 +42,15 @@
                                             <div class="row text-center mt-2">
                                                 <div class="col-sm-6">
                                                     <div class="d-grid">
-                                                        <a href="{{ route('cart.store', ['id' => $product->id]) }}" class="btn btn-primary waves-effect waves-light mt-2 me-1">
-                                                            <i class="uil uil-shopping-cart-alt me-2"></i> Add to cart
-                                                        </a>
+                                                        <button type="submit" class="btn btn-primary waves-effect waves-light mt-2 me-1">
+                                                            <i class="fas fa-shopping-cart me-2"></i> Add to cart
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="d-grid">
                                                         <button type="button" class="btn btn-light waves-effect  mt-2 waves-light">
-                                                            <i class="uil uil-shopping-basket me-2"></i>Order now
+                                                            <i class="fas fa-shopping-basket me-2"></i>Order now
                                                         </button>
                                                     </div>
                                                 </div>
@@ -69,105 +70,71 @@
 	                                    KSH {{ $product->price }} <span class="text-danger font-size-14 ms-2">- 20 % Off</span></h6>
                                     <div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mt-3">
-                                                    <h5 class="font-size-14">Specification :</h5>
-                                                    <ul class="list-unstyled product-desc-list text-muted">
-                                                        <li><i class="mdi mdi-circle-medium me-1 align-middle"></i> High Quality</li>
-                                                        <li><i class="mdi mdi-circle-medium me-1 align-middle"></i> Leather</li>
-                                                        <li><i class="mdi mdi-circle-medium me-1 align-middle"></i> All Sizes available</li>
-                                                        <li><i class="mdi mdi-circle-medium me-1 align-middle"></i> 4 Different Color</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="mt-3">
-                                                    <h5 class="font-size-14">Services :</h5>
-                                                    <ul class="list-unstyled product-desc-list text-muted">
-                                                        <li><i class="uil uil-exchange text-primary me-1 font-size-16"></i> 10 Days Replacement</li>
-                                                        <li><i class="uil uil-bill text-primary me-1 font-size-16"></i> Cash on Delivery available
+                                            <div class="col mt-4">
+                                                <h5 class="font-size-14 mb-3">Product description: </h5>
+                                                <div class="product-desc">
+                                                    <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active" id="desc-tab" data-bs-toggle="tab" href="#desc" role="tab">Description</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" id="specifi-tab" data-bs-toggle="tab" href="#specifi" role="tab">Specifications</a>
                                                         </li>
                                                     </ul>
+                                                    <div class="tab-content border border-top-0 p-4">
+                                                        <div class="tab-pane fade show active" id="desc" role="tabpanel">
+                                                            <div class="text-muted p-2">
+                                                                <p>{{ $product->description }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="specifi" role="tabpanel">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-nowrap mb-0">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <th scope="row" style="width: 20%;">Category</th>
+                                                                        <td>Shoes</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Brand</th>
+                                                                        <td>Nike</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Color</th>
+                                                                        <td>Gray</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Quality</th>
+                                                                        <td>High</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Material</th>
+                                                                        <td>Leather</td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-5 col-sm-4">
                                                 <div class="mt-3">
-                                                    <h5 class="font-size-14 mb-3">Select Quantity :</h5>
-                                                    <select class="form-select w-sm">
-                                                        <option value="1">3</option>
-                                                        <option value="2">4</option>
-                                                        <option value="3">5</option>
-                                                        <option value="4">6</option>
-                                                        <option value="5" selected>7</option>
-                                                        <option value="6">8</option>
-                                                        <option value="7">9</option>
-                                                        <option value="8">10</option>
-                                                    </select>
+                                                    <small>Quantity</small>
+                                                    <div style="max-width: 7rem;" class="product-cart-touchspin">
+                                                        <input class="form-control" type="text" value="1" name="quantity" aria-label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                         <!-- end row -->
-                        <div class="mt-4">
-                            <h5 class="font-size-14 mb-3">Product description: </h5>
-                            <div class="product-desc">
-                                <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="desc-tab" data-bs-toggle="tab" href="#desc" role="tab">Description</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="specifi-tab" data-bs-toggle="tab" href="#specifi" role="tab">Specifications</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content border border-top-0 p-4">
-                                    <div class="tab-pane fade show active" id="desc" role="tabpanel">
-                                        <div class="row">
-                                            <div class="col-sm-3 col-md-2">
-                                                <div><img src="{{ asset('images/kuku/' . $product->image) }}" alt="" class="img-fluid mx-auto d-block"></div>
-                                            </div>
-                                            <div class="col-sm-9 col-md-10">
-                                                <div class="text-muted p-2">
-                                                    <p>{{ $product->description }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="specifi" role="tabpanel">
-                                        <div class="table-responsive">
-                                            <table class="table table-nowrap mb-0">
-                                                <tbody>
-                                                <tr>
-                                                    <th scope="row" style="width: 20%;">Category</th>
-                                                    <td>Shoes</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Brand</th>
-                                                    <td>Nike</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Color</th>
-                                                    <td>Gray</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Quality</th>
-                                                    <td>High</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Material</th>
-                                                    <td>Leather</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="mt-4">
                             <h5 class="font-size-14 mb-3">Reviews : </h5>
                             <div class="text-muted mb-3"><span class="badge bg-success font-size-14 me-1"><i class="mdi mdi-star"></i> 4.2</span> 234
@@ -213,5 +180,17 @@
         </div>
         <!-- end row -->
     </div>
+
+    @push('scripts')
+        <script src="{{ asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
+        <script>
+            $("input[name='quantity']").TouchSpin({
+                min: 0,
+                max: 100,
+                boostat: 5,
+                maxboostedstep: 10,
+            });
+        </script>
+    @endpush
 
 @endsection

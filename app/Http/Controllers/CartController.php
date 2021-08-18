@@ -32,10 +32,11 @@ class CartController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param $id
+     * @param Request $request
+     * @param         $id
      * @return RedirectResponse
      */
-    public function store($id): RedirectResponse {
+    public function store(Request $request, $id): RedirectResponse {
         $product = Product::findOrFail($id);
 
         $cart = Session::get('cart', []);
@@ -45,7 +46,7 @@ class CartController extends Controller
         } else {
             $cart[$id] = [
                 "title" => $product->title,
-                "quantity" => 1,
+                "quantity" => $request->input('quantity') ?? 1,
                 "price" => $product->price,
                 "image" => $product->image
             ];
