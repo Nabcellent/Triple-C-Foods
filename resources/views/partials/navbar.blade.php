@@ -25,13 +25,15 @@
                             @php $total += $details['price'] * $details['quantity'] @endphp
                         @endforeach
                         <a href="#" class="nav-link dropdown-toggle {{ !Route::is('cart.*') ?: 'active' }}" data-bs-toggle="dropdown" title="Cart">
-                            Cart <i class="fab fa-opencart"><span
-                                    class="position-absolute top-0 font-size-10">{{ count((array) session('cart')) }}</span></i>
-                            <span class="font-size-10">{{ $total }}</span>
+                            Cart
+                            <i class="fab fa-opencart">
+                                <span class="position-absolute top-0 font-size-10">{{ count((array) session('cart')) === 0 ? '' : count((array) session('cart')) }}</span>
+                            </i>
+                            <span class="font-size-10">{{ $total === 0 ? '' : $total }}</span>
                         </a>
                         @if(session('cart'))
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><h6 class="dropdown-header text-center">Items in cart</h6></li>
+                                <li><h6 class="dropdown-header text-center font-size-12">Items in cart</h6></li>
                                 @foreach(session('cart') as $id => $details)
                                     <li>
                                         <a class="dropdown-item" href="#">
@@ -49,6 +51,7 @@
                                         </a>
                                     </li>
                                 @endforeach
+                                <h6 class="dropdown-divider"></h6>
                                 <li><a href="{{ route('cart.index') }}" class="dropdown-item text-center">View All</a></li>
                             </ul>
                         @endif
