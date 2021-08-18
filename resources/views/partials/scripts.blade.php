@@ -13,7 +13,8 @@
 {{--    TOASTIFY    --}}
 <script src="{{ asset('vendor/toastify/toastify.js') }}"></script>
 
-@yield('scripts')
+{{--    DYNAMIC SCRIPTS    --}}
+@stack('scripts')
 
 <script src="{{ asset('js/app.js') }}" defer></script>
 

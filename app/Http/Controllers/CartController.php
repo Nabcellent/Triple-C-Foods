@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -29,12 +32,28 @@ class CartController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @param $id
+     * @return RedirectResponse
      */
-    public function store(Request $request)
-    {
-        //
+    public function store($id): RedirectResponse {
+        $product = Product::findOrFail($id);
+
+        $cart = Session::get('cart', []);
+
+        if(isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "title" => $product->title,
+                "quantity" => 1,
+                "price" => $product->price,
+                "image" => $product->image
+            ];
+        }
+
+        Session::put('cart', $cart);
+
+        return redirect()->back()->with('toast_success', 'Product added to cart successfully!');
     }
 
     /**
@@ -62,23 +81,34 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param Request $request
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request) {
+        if($request->input('id') && $request->input('quantity')){
+            $cart = Session::get('cart');
+            $cart[$request->input('id')]["quantity"] = $request->input('quantity');
+
+            session()->put('cart', $cart);
+            session()->flash('toast_success', 'Cart updated successfully');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param Request $request
+     * @return void
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Request $request) {
+        if($request->input('id')) {
+            $cart = Session::get('cart');
+
+            if(isset($cart[$request->input('id')])) {
+                unset($cart[$request->input('id')]);
+                session()->put('cart', $cart);
+            }
+
+            session()->flash('toast_success', 'Product removed successfully');
+        }
     }
 }

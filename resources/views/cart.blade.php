@@ -1,5 +1,8 @@
 @extends('layouts.master')
 @section('title', 'Cart')
+@section('stylesheets')
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css') }}">
+@endsection
 @section('content')
 
     <div id="cart" class="container p-10">
@@ -11,157 +14,82 @@
                 <div class="col-lg-8">
                     <div class="card wish-list mb-3">
                         <div class="card-body">
-                            <h5 class="mb-4">Cart (<span>2</span> items)</h5>
-                            <div class="row mb-4">
-                                <div class="col-md-5 col-lg-3 col-xl-3">
-                                    <div class="bg-secondary shadow rounded py-3 mb-3 mb-md-0">
-                                        <img class="img-fluid w-100" src="{{ asset('images/carousel/1.jpg') }}" alt="Sample">
-                                    </div>
-                                </div>
-                                <div class="col-md-7 col-lg-9 col-xl-9">
-                                    <div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>
-                                                <h5 class="mb-3">Amritsari Chicken Masala</h5>
-                                                <p class="mb-3 text-muted text-uppercase small">PIECES - 6</p>
-                                                <p class="mb-3 text-muted text-uppercase small">Size: M</p>
-                                            </div>
-                                            <div>
-                                                <div class="def-number-input number-input safari_only mb-0 w-100">
-                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                            class="minus"></button>
-                                                    <input class="quantity" min="0" name="quantity" value="1" type="number" aria-label="">
-                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                            class="plus"></button>
-                                                </div>
-                                                <small id="passwordHelpBlock" class="form-text text-muted text-center">(Note, 1 piece)</small>
+                            <h5 class="mb-4">Cart (<span>{{ count((array) session('cart')) }}</span> items)</h5>
+                            @php $total = 0 @endphp
+                            @if(session('cart'))
+                                @foreach(session('cart') as $id => $details)
+                                    @php $total += $details['price'] * $details['quantity'] @endphp
+                                    <div class="row mb-4 align-items-center" data-id="{{ $id }}">
+                                        <div class="col-md-5 col-lg-3 col-xl-3">
+                                            <div class="bg-secondary shadow rounded py-3 mb-3 mb-md-0">
+                                                <img class="img-fluid w-100" src="{{ asset('images/kuku/' . $details['image']) }}" alt="Sample">
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <a href="#!" type="button" class="card-link-secondary small text-uppercase mr-3"><i
-                                                        class="fas fa-trash-alt mr-1"></i> Remove item </a>
-                                                <a href="#!" type="button" class="card-link-secondary small text-uppercase"><i
-                                                        class="fas fa-heart mr-1"></i> Move to wish list </a>
-                                            </div>
-                                            <p class="mb-0"><span><strong>KSH 17.99/=</strong></span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="mb-4">
-                            <div class="row mb-4">
-                                <div class="col-md-5 col-lg-3 col-xl-3">
-                                    <div class="bg-secondary shadow rounded py-3 mb-3 mb-md-0">
-                                        <img class="img-fluid w-100" src="{{ asset('images/kuku/9cff11d6c12de722215055dde430ce02-700.jpg') }}" alt="Sample">
-                                    </div>
-                                </div>
-                                <div class="col-md-7 col-lg-9 col-xl-9">
-                                    <div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>
-                                                <h5 class="mb-3">Kerala Chicken Roast</h5>
-                                                <p class="mb-3 text-muted text-uppercase small">PIECES - 3</p>
-                                                <p class="mb-3 text-muted text-uppercase small">Size: M</p>
-                                            </div>
-                                            <div>
-                                                <div class="def-number-input number-input safari_only mb-0 w-100">
-                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                            class="minus"></button>
-                                                    <input class="quantity" min="0" name="quantity" value="1" type="number">
-                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                            class="plus"></button>
+                                        <div class="col-md-7 col-lg-9 col-xl-9">
+                                            <div class="">
+                                                <h6 class="mb-3">{{ $details['title'] }}</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="text-muted mb-2 small">Quantity</p>
+                                                    <div style="max-width: 7rem;" class="product-cart-touchspin">
+                                                        <input class="form-control quantity update-cart" type="text"
+                                                               value="{{ $details['quantity'] }}" name="quantity" aria-label>
+                                                    </div>
+                                                    <div class="font-size-12">
+                                                        <a href="javascript:void(0)" class="remove-from-cart"><i class="fa fa-trash"></i></a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <a href="#!" type="button" class="card-link-secondary small text-uppercase mr-3"><i
-                                                        class="fas fa-trash-alt mr-1"></i> Remove item </a>
-                                                <a href="#!" type="button" class="card-link-secondary small text-uppercase"><i
-                                                        class="fas fa-heart mr-1"></i> Move to wish list </a>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="font-size-12">
+                                                    <strong>Unit Price:</strong> KSH {{ $details['price'] }}/=
+                                                </span>
+                                                <p class="mb-0">
+                                                    <strong>Subtotal:</strong>
+                                                    <small>KSH {{ $details['price'] * $details['quantity'] }}/=</small>
+                                                </p>
                                             </div>
-                                            <p class="mb-0"><span><strong>KSH 35.99/=</strong></span></p>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <hr class="mb-4">
-                            <div class="row mb-4">
-                                <div class="col-md-5 col-lg-3 col-xl-3">
-                                    <div class="bg-secondary shadow rounded py-3 mb-3 mb-md-0">
-                                        <img class="img-fluid w-100" src="{{ asset('images/kuku/a1e56130c9ae44b6a0ba0536-1000x625.jpg') }}" alt="Sample">
-                                    </div>
-                                </div>
-                                <div class="col-md-7 col-lg-9 col-xl-9">
-                                    <div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>
-                                                <h5 class="mb-3">Chicken Chettinad</h5>
-                                                <p class="mb-3 text-muted text-uppercase small">PIECES - 7</p>
-                                                <p class="mb-3 text-muted text-uppercase small">Size: M</p>
-                                            </div>
-                                            <div>
-                                                <div class="def-number-input number-input safari_only mb-0 w-100">
-                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                            class="minus"></button>
-                                                    <input class="quantity" min="0" name="quantity" value="1" type="number">
-                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                            class="plus"></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <a href="#!" type="button" class="card-link-secondary small text-uppercase mr-3"><i
-                                                        class="fas fa-trash-alt mr-1"></i> Remove item </a>
-                                                <a href="#!" type="button" class="card-link-secondary small text-uppercase"><i
-                                                        class="fas fa-heart mr-1"></i> Move to wish list </a>
-                                            </div>
-                                            <p class="mb-0"><span><strong>KSH 35.99/=</strong></span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-primary mb-0">
-                                <i class="fas fa-info-circle mr-1"></i> Do not delay the purchase, adding
-                                items to your cart does not mean booking them.
+                                    <hr class="mb-4">
+                                @endforeach
+                            @endif
+                            <p class="text-primary small mb-0">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Do not delay the purchase, adding items to your cart does not mean booking them.
                             </p>
                         </div>
                     </div>
                     <!-- Card -->
 
                 </div>
-                <!--Grid column-->
 
-                <!--Grid column-->
                 <div class="col-lg-4">
 
-                    <!-- Card -->
                     <div class="card mb-3">
                         <div class="card-body">
 
-                            <h5 class="mb-3">The total amount of</h5>
+                            <h5 class="mb-3">The total amount to pay</h5>
 
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                    Temporary amount<span>KSH 17.99/=</span>
+                                    Total amount<span>KSH 17.99/=</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                    Shipping<span>Gratis</span>
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                    Tax<span>KSH 10/=</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                     <div>
-                                        <strong>The total amount of</strong>
-                                        <strong><p class="mb-0">(including VAT)</p></strong>
+                                        <strong>Total(including VAT)</strong>
                                     </div>
-                                    <span><strong>KSH 35.99/=</strong></span>
+                                    <span><strong>KSH {{ $total }}/=</strong></span>
                                 </li>
                             </ul>
-                            <button type="button" class="btn btn-primary btn-block waves-effect waves-light">Checkout</button>
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ route('products.index') }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+                                <button type="button" class="btn btn-sm btn-primary btn-block">Checkout</button>
+                            </div>
                         </div>
                     </div>
-                    <!-- Card -->
 
                     <!-- Card -->
                     <div class="card mb-3">
@@ -189,5 +117,62 @@
         <!--Section: Block Content-->
     </div>
     </div>
+
+    @push('scripts')
+        <script src="{{ asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
+        <script>
+            $("input[name='quantity']").TouchSpin({
+                min: 0,
+                max: 100,
+                boostat: 5,
+                maxboostedstep: 10,
+            });
+
+            $(".update-cart").change(function (e) {
+                e.preventDefault();
+
+                let elem = $(this);
+
+                $.ajax({
+                    url: '{{ route('cart.update') }}',
+                    method: 'PATCH',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: elem.parents(".row").attr("data-id"),
+                        quantity: elem.val()
+                    },
+                    success: () => window.location.reload()
+                });
+            });
+
+            $(".remove-from-cart").click(function (e) {
+                e.preventDefault();
+
+                let elem = $(this);
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '{{ route('cart.destroy') }}',
+                            method: "DELETE",
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                id: elem.parents(".row").attr("data-id"),
+                            },
+                            success: () => window.location.reload()
+                        });
+                    }
+                })
+            });
+        </script>
+    @endpush
 
 @endsection

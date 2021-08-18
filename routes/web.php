@@ -22,10 +22,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->middleware('auth')->group(function() {
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/products', [ProductController::class, 'index'])->name('products');
+
+    Route::prefix('/products')->name('products.')->group(function() {
+        Route::get('/', [ProductController::class, 'index'])->name('index');
+        Route::get('/view/{id}', [ProductController::class, 'show'])->name('show');
+    });
 
     Route::prefix('/cart')->name('cart.')->group(function() {
         Route::get('/', [CartController::class, 'index'])->name('index');
+        Route::get('/store/{id}', [CartController::class, 'store'])->name('store');
+        Route::patch('/update', [CartController::class, 'update'])->name('update');
+        Route::delete('/destroy', [CartController::class, 'destroy'])->name('destroy');
     });
 });
 

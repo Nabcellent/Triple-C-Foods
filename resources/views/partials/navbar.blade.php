@@ -11,17 +11,46 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbar_responsive">
+            <ul class="collapse navbar-collapse" id="navbar_responsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="{{ route('home') }}" class="nav-link {{ !Route::is('home') ?: 'active' }}">Home</a></li>
                     <li class="nav-item">
-                        <a href="{{ route('products') }}" class="nav-link {{ !Route::is('product*') ?: 'active' }}" data-toggle="modal"
-                           data-target="#profile_modal">Kitchen</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('cart.index') }}" class="nav-link {{ !Route::is('cart.*') ?: 'active' }}" title="Cart">
-                            <i class="fab fa-opencart"></i>
+                        <a href="{{ route('products.index') }}" class="nav-link {{ !Route::is('product*') ?: 'active' }}" data-toggle="modal"
+                           data-target="#profile_modal">Kitchen
                         </a>
+                    </li>
+                    <li class="nav-item position-relative dropdown">
+                        @php $total = 0 @endphp
+                        @foreach((array) session('cart') as $id => $details)
+                            @php $total += $details['price'] * $details['quantity'] @endphp
+                        @endforeach
+                        <a href="#" class="nav-link dropdown-toggle {{ !Route::is('cart.*') ?: 'active' }}" data-bs-toggle="dropdown" title="Cart">
+                            Cart <i class="fab fa-opencart"><span class="position-absolute top-0 font-size-10">{{ count((array) session('cart')) }}</span></i>
+                            <span class="font-size-10">{{ $total }}</span>
+                        </a>
+                        @if(session('cart'))
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><h6 class="dropdown-header text-center">Items in cart</h6></li>
+                                @foreach(session('cart') as $id => $details)
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <div class="row d-flex align-items-center font-size-10">
+                                                <div class="col-2 p-0">
+                                                    <img src="{{ asset('images/kuku/' . $details['image']) }}" class="img-fluid rounded-circle"
+                                                         style="width:1rem; height:1rem" alt=""/>
+                                                </div>
+                                                <div class="col-10 p-0">
+                                                    <p>{{ $details['title'] }}</p>
+                                                    <span class="price text-danger">KSH {{ $details['price'] }}</span>
+                                                    <span class="count"> Qty:{{ $details['quantity'] }}</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endforeach
+                                <li><a href="{{ route('cart.index') }}" class="dropdown-item text-center">View All</a></li>
+                            </ul>
+                        @endif
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -46,7 +75,7 @@
                         </form>
                     </li>
                 </ul>
-            </div>
         </div>
-    </nav>
-    <!-- End Navigation -->
+</div>
+</nav>
+<!-- End Navigation -->

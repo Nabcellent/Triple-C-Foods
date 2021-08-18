@@ -21,10 +21,10 @@
 
     @yield('content')
 
+    <a href="#navigation-sticky" class="scroll-to-top" title="Scroll To Top"><i class="fas fa-arrow-circle-up"></i></a>
+
     @include('partials.footer')
 </div>
-
-<script src="{{ asset('js/particles/particles.js') }}"></script>
 
 @include('partials.scripts')
 </body>
