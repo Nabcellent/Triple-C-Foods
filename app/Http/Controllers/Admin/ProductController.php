@@ -68,7 +68,7 @@ class ProductController extends Controller
     public function show(int $id): Response|RedirectResponse {
         try {
             $data = [
-                'product' => Product::findOrFail($id),
+                'product' => Product::with('productImages')->findOrFail($id),
                 'otherProducts' => Product::where('id', '<>', $id)->latest()->take(4)->get()
             ];
 

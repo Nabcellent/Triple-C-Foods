@@ -42,13 +42,14 @@ class CartController extends Controller
         $cart = Session::get('cart', []);
 
         if(isset($cart[$id])) {
-            $cart[$id]['quantity']++;
+            $cart[$id]['quantity'] += $request->input('quantity');
         } else {
             $cart[$id] = [
                 "title" => $product->title,
-                "quantity" => $request->input('quantity') ?? 1,
+                "quantity" => $request->input('quantity'),
                 "price" => $product->price,
-                "image" => $product->image
+                "image" => $product->image,
+                'created_at' => now()
             ];
         }
 

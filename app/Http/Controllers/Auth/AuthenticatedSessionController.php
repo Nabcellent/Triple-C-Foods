@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Cart;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -44,6 +47,16 @@ class AuthenticatedSessionController extends Controller
      * @return RedirectResponse
      */
     public function destroy(Request $request): RedirectResponse {
+        if(!empty(Session::get('cart'))) {
+            foreach(Session::get('cart') as $id => $item) {
+                $item['product_id'] = $id;
+                $item['details'] = json_encode(Arr::only($item, ['price']));
+                $attributes = Arr::only($item, ['product_id', 'details', 'quantity', 'created_at']);
+
+                Auth::user()->cart()->create($attributes);
+            }
+        }
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

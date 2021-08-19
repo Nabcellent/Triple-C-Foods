@@ -1,4 +1,6 @@
-(() => {
+$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+
+$(() => {
     if($('.scroll-to-top').length) {
         window.addEventListener('scroll', function () {
             if(document.getElementsByTagName('html')[0].scrollTop > 1000) {
@@ -8,7 +10,7 @@
             }
         })
     }
-})();
+});
 
 const swiper = new Swiper('.swiper-container', {
     effect: 'coverflow',

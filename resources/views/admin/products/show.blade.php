@@ -1,4 +1,8 @@
 <x-app-layout>
+    @section('stylesheets')
+        <link rel="stylesheet" href="{{ asset('vendor/dropzone/dropzone.min.css') }}">
+    @endsection
+
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl leading-tight">
@@ -37,13 +41,28 @@
                              alt="Nike Air">
                     </div>
                     <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
-                        <h3 class="text-gray-700 uppercase text-lg">{{ $product->title }}</h3>
-                        <span class="text-gray-500 mt-3">KES {{ $product->price }}/-</span>
+                        <div class="flex justify-between">
+                            <div>
+                                <h3 class="text-gray-700 uppercase text-lg">{{ $product->title }}</h3>
+                                <span class="text-gray-500 mt-3">KES {{ $product->price }}/-</span>
+                            </div>
+                            <div>
+                                <label class="text-gray-700 text-sm" for="count">Stock</label>
+                                <p>{{ $product->stock }}</p>
+                            </div>
+                        </div>
                         <hr class="my-3">
                         <div class="mt-2">
-                            <label class="text-gray-700 text-sm" for="count">Stock:</label>
-                            <div class="flex items-center mt-1">
-                                <p>{{ $product->stock }}</p>
+                            <label class="text-gray-700 text-sm" for="count">THUMBNAILS:</label>
+                            <form action="{{ route('admin.kitchen.image.store')}}" class="dropzone" id="my-awesome-dropzone">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            </form>
+                            <div id="img-button" class="text-right mt-3" style="display: none">
+                                <button
+                                    class="px-6 py-1 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">
+                                    Upload
+                                </button>
                             </div>
                         </div>
                         <hr class="my-3">
@@ -69,7 +88,7 @@
                                 <div class="flex items-end justify-end h-56 w-full bg-cover"
                                      style="background-image: url('{{ asset('images/kuku/' . $otherProduct->image) }}')">
                                     <a href="{{ route('admin.kitchen.show', ['id' => $otherProduct->id]) }}"
-                                        class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                                       class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                                         <i class="fas fa-eye" title="View Product"></i>
                                     </a>
                                 </div>
@@ -91,4 +110,53 @@
             </div>
         </footer>
     </div>
+
+    @push('scripts')
+        <script src="{{ asset('vendor/dropzone/dropzone.min.js') }}"></script>
+        <script>
+            Dropzone.autoDiscover = false;
+
+            $(() => {
+                const dropZone = new Dropzone("#my-awesome-dropzone", {
+                    paramName: 'images',
+                    maxFiles: 3,
+                    acceptedFiles: 'image/*',
+                    withCredentials: '{{ csrf_token() }}',
+                    headers: {"_token": "{{ csrf_token() }}"},
+                    uploadMultiple: true,
+                    parallelUploads: 3,
+                    autoProcessQueue: false,
+                    addRemoveLinks: true
+                });
+
+                dropZone.on("addedfile", function (file) {
+                    if (dropZone.getAddedFiles().length) $('#img-button').show(300);
+                });
+
+                dropZone.on("removedfile", function (file) {
+                    if (!dropZone.getAcceptedFiles().length) {
+                        $('#img-button').hide(300)
+
+                        $.ajax({
+                            url: `{{ route('admin.kitchen.image.destroy') }}/` + file.id,
+                            method: 'DELETE',
+                        });
+                    }
+                });
+
+                $('#img-button button').on('click', () => { dropZone.processQueue() });
+
+                if ({{ count($product->productImages) > 0 ? 'true' : 'false' }}) {
+                    @foreach($product->productImages as $productImage)
+                    dropZone.displayExistingFile({
+                        name: 'image ' + {{ $loop->iteration }},
+                        size: '3000',
+                        id: {{ $productImage->id }}
+                    }, '{{ asset('images/kuku/' . $productImage->image) }}')
+                    @endforeach
+                }
+            })
+        </script>
+    @endpush
+
 </x-app-layout>

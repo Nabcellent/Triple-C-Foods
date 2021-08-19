@@ -21,7 +21,7 @@ class ProductController extends Controller
 
     public function show($id): View|Factory|Application|RedirectResponse {
         try {
-            $data['product'] = Product::findOrFail($id);
+            $data['product'] = Product::with('productImages')->findOrFail($id);
 
             return view('details', $data);
         } catch(Exception $e) {

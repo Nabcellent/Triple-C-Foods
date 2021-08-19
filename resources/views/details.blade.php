@@ -17,9 +17,11 @@
                                                 <a class="nav-link active" id="product-1-tab" data-bs-toggle="pill" href="#product-1" role="tab">
                                                     <img src="{{ asset('images/kuku/' . $product->image) }}" alt="" class="img-fluid mx-auto d-block tab-img rounded">
                                                 </a>
-                                                <a class="nav-link" id="product-2-tab" data-bs-toggle="pill" href="#product-2" role="tab">
-                                                    <img src="{{ asset('images/kuku/chicken-food-lunch-meal.jpg') }}" alt="" class="img-fluid mx-auto d-block tab-img rounded">
-                                                </a>
+                                                @foreach($product->productImages as $image)
+                                                    <a class="nav-link" id="product-{{ $image->id }}-tab" data-bs-toggle="pill" href="#product-{{ $image->id }}" role="tab">
+                                                        <img src="{{ asset('images/kuku/' . $image->image) }}" alt="" class="img-fluid mx-auto d-block tab-img rounded">
+                                                    </a>
+                                                @endforeach
                                             </div>
                                         </div>
                                         <div class="col-9">
@@ -28,16 +30,14 @@
                                                     <a href="#"> <i class="fas fa-heart"></i> </a>
                                                 </div>
                                                 <div class="tab-pane fade show active" id="product-1" role="tabpanel">
-                                                    <div class="product-img">
-                                                        <img src="{{ asset('images/kuku/' . $product->image) }}" alt="" class="img-fluid mx-auto d-block"
-                                                             data-zoom="assets/images/product/img-1.png">
-                                                    </div>
+                                                    <img src="{{ asset('images/kuku/' . $product->image) }}" alt="" class="img-fluid mx-auto d-block"
+                                                         data-zoom="assets/images/product/img-1.png">
                                                 </div>
-                                                <div class="tab-pane fade" id="product-2" role="tabpanel">
-                                                    <div class="product-img">
-                                                        <img src="{{ asset('images/kuku/chicken-food-lunch-meal.jpg') }}" alt="" class="img-fluid mx-auto d-block">
-                                                    </div>
+                                                @foreach($product->productImages as $image)
+                                                <div class="tab-pane fade" id="product-{{ $image->id }}" role="tabpanel">
+                                                    <img src="{{ asset('images/kuku/' . $image->image) }}" alt="" class="img-fluid mx-auto d-block">
                                                 </div>
+                                                @endforeach
                                             </div>
                                             <div class="row text-center mt-2">
                                                 <div class="col-sm-6">
