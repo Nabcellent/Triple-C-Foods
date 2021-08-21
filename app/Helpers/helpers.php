@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cart;
 use Illuminate\Http\RedirectResponse;
 
 function isAdmin():bool {
@@ -49,4 +50,16 @@ function goToRoute($goto): RedirectResponse {
     }
 
     return app('redirect')->to(route($to, $data));
+}
+
+function cartTotal() {
+    if(Auth::check()) {
+        $count = Cart::where('user_id', Auth::id())->count();
+    } else if(!empty(Session::get('cart'))) {
+        $count = count((array) session('cart')) === 0 ? '' : count((array) session('cart'));
+    } else {
+        $count = 0;
+    }
+
+    return $count;
 }

@@ -28,9 +28,10 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot() {
-        if(!Request::routeIs('admin.')) {
+        /*if(!Request::routeIs('admin.*')) {
             Paginator::useBootstrap();
-        }
+        }*/
+
         if(config('app.env') === 'production') URL::forceScheme('https');
     }
 }

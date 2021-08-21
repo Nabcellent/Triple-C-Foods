@@ -21,7 +21,7 @@ class ProductController extends Controller
      * @return Response
      */
     public function index(): Response {
-        $data['products'] = Product::all();
+        $data['products'] = Product::latest()->paginate(10);
 
         return response()->view('admin.products.index', $data);
     }
