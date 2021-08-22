@@ -31,6 +31,10 @@ function goWithDanger($to = 'dashboard', $msg = NULL): RedirectResponse {
     return goToRoute($to)->with('sweet_danger', $msg);
 }
 
+function toastInfo($clientMessage): RedirectResponse {
+    return back()->withInput()->with('toast_info', __($clientMessage));
+}
+
 function toastError($serverError, $clientMessage): RedirectResponse {
     Log::error($serverError);
 

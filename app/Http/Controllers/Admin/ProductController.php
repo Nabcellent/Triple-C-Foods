@@ -129,6 +129,14 @@ class ProductController extends Controller
      * @return RedirectResponse
      */
     public function destroy(int $id): RedirectResponse {
+        $product = Product::find($id);
+
+        if($product->orderProducts()->exists())
+            return toastInfo('This product has been ordered and cannot be deleted at this time.');
+
+        if($product->cart()->exists())
+            return toastInfo('This product is currently in a cart and cannot be deleted at this time.');
+
         if(Product::destroy($id)) {
             return back()->with('toast_success', 'Product deleted.');
         } else {

@@ -16,7 +16,7 @@ class CreateOrdersProductsTable extends Migration
         Schema::create('orders_products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('product_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->json('details');
             $table->smallInteger('quantity')->unsigned()->default(1);
             $table->float('price')->unsigned();

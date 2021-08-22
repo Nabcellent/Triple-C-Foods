@@ -72,6 +72,7 @@ Route::prefix('/admin')->middleware(['auth'])->name('admin.')->group(function() 
 
     Route::prefix('/orders')->name('orders.')->group(function() {
         Route::get('/', [AdminOrderController::class, 'index'])->name('index');
+        Route::get('/destroy/{id}', [AdminOrderController::class, 'destroy'])->name('destroy');
     });
 });
 

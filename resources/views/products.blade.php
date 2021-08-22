@@ -65,7 +65,9 @@
                         </div>
                     </div>
                 @empty
-                    <div>No products</div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto card p-5"><h4>No Products</h4></div>
+                    </div>
                 @endforelse
             </div>
             <div class="row">
