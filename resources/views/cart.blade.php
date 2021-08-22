@@ -6,11 +6,8 @@
 @section('content')
 
     <div id="cart" class="container p-10" style="min-height: 75vh">
-        <!--Section: Block Content-->
         <section>
-            <!--Grid row-->
             <div class="row">
-                <!--Grid column-->
                 <div class="col-lg-8">
                     <div class="card wish-list mb-3">
                         <div class="card-body">
@@ -27,7 +24,7 @@
                                         </div>
                                         <div class="col-md-7 col-lg-9 col-xl-9">
                                             <div class="">
-                                                <h6 class="mb-3">{{ $details['title'] }}</h6>
+                                                <h6 class="mb-3"><a href="{{ route('products.show', ['id' => $id]) }}">{{ $details['title'] }}</a></h6>
                                                 <div class="d-flex justify-content-between">
                                                     <p class="text-muted mb-2 small">Quantity</p>
                                                     <div style="max-width: 7rem;" class="product-cart-touchspin">
@@ -78,15 +75,13 @@
                                     Tax<span>KSH 10/=</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                                    <div>
-                                        <strong>Total(including VAT)</strong>
-                                    </div>
+                                    <div><strong>Total(including VAT)</strong></div>
                                     <span><strong>KSH {{ $total }}/=</strong></span>
                                 </li>
                             </ul>
                             <div class="d-flex justify-content-between">
                                 <a href="{{ route('products.index') }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
-                                <button type="button" class="btn btn-sm btn-primary btn-block">Checkout</button>
+                                <a href="{{ route('order.index') }}" class="btn btn-sm btn-primary btn-block">Checkout <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -110,11 +105,8 @@
                         </div>
                     </div>
                 </div>
-                <!--Grid column-->
             </div>
-            <!--Grid row-->
         </section>
-        <!--Section: Block Content-->
     </div>
     </div>
 

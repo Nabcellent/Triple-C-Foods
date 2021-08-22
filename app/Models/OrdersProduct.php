@@ -12,6 +12,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class OrdersProduct extends Model {
     use HasFactory;
 
+    protected $fillable = [
+        'order_id',
+        'product_id',
+        'details',
+        'quantity',
+        'price',
+    ];
+
     /**
      * RELATIONSHIP FUNCTIONS
      */

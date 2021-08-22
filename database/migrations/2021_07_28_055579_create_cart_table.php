@@ -19,6 +19,7 @@ class CreateCartTable extends Migration
             $table->foreignId('product_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->json('details');
             $table->smallInteger('quantity')->unsigned()->default(1);
+            $table->float('price')->unsigned();
             $table->timestamps();
         });
     }

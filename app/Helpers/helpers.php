@@ -11,7 +11,8 @@ function isRed():bool {
 }
 
 function createOk($model = null, $routeName = null, $msg = 'Successfully created!'): RedirectResponse {
-    $msg = !$model ?: $model . ' ' . $msg;
+    $msg = $model ? $model . ' ' . $msg : $msg;
+
     return goWithSuccess($routeName, __($msg));
 }
 function deleteOk($msg = 'Successfully deleted.', $routeName = null): RedirectResponse {
@@ -52,14 +53,19 @@ function goToRoute($goto): RedirectResponse {
     return app('redirect')->to(route($to, $data));
 }
 
-function cartTotal() {
-    if(Auth::check()) {
-        $count = Cart::where('user_id', Auth::id())->count();
-    } else if(!empty(Session::get('cart'))) {
-        $count = count((array) session('cart')) === 0 ? '' : count((array) session('cart'));
-    } else {
-        $count = 0;
-    }
+function cartCount(): int|string {
+    return (count((array) session('cart')) === 0 ? '' : count((array) session('cart')));
+}
 
-    return $count;
+function cartTotal(): int|string {
+    $total = 0;
+
+    foreach((array) session('cart') as $details)
+        $total += $details['price'] * $details['quantity'];
+
+    return ($total === 0) ? '' : $total;
+}
+
+function cartItems(): array {
+    return Session::get('cart');
 }

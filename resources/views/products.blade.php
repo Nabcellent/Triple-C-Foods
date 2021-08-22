@@ -54,7 +54,7 @@
                             </div>
                             <div class="card-body text-center product-content py-5">
                                 <h6 class="mb-1"><a href="#" class="text-dark">{{ $product->title }}</a></h6>
-                                <p class="text-muted font-size-13">Blue, Shoes</p>
+                                <p class="text-muted font-size-13">-------</p>
                                 <h6 class="mt-2 mb-0">
                                     <span class="text-muted"><del>KSH 240</del> | </span> KSH {{ $product->price }}
                                 </h6>

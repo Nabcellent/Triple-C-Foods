@@ -19,6 +19,7 @@ class CreateOrdersProductsTable extends Migration
             $table->foreignId('product_id')->constrained()->cascadeOnUpdate();
             $table->json('details');
             $table->smallInteger('quantity')->unsigned()->default(1);
+            $table->float('price')->unsigned();
             $table->timestamps();
         });
     }

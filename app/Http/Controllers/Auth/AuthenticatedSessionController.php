@@ -14,8 +14,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
-class AuthenticatedSessionController extends Controller
-{
+class AuthenticatedSessionController extends Controller {
     /**
      * Display the login view.
      *
@@ -37,7 +36,28 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $this->authenticated($request);
+
         return redirect()->intended(RouteServiceProvider::HOME);
+    }
+
+    protected function authenticated(Request $request) {
+        //  Update user cart with user id
+
+        $cartItems = Cart::where('user_id', Auth::id());
+
+        if($cartItems->count()) {
+            $cart = $cartItems->get()->mapWithKeys(function($item, $key) {
+                $item->title = $item->product->title;
+                $item->image = $item->product->image;
+
+                return [$item->product_id => $item->toArray()];
+            })->toArray();
+
+            $cartItems->delete();
+
+            Session::put('cart', $cart);
+        }
     }
 
     /**
@@ -50,8 +70,8 @@ class AuthenticatedSessionController extends Controller
         if(!empty(Session::get('cart'))) {
             foreach(Session::get('cart') as $id => $item) {
                 $item['product_id'] = $id;
-                $item['details'] = json_encode(Arr::only($item, ['price']));
-                $attributes = Arr::only($item, ['product_id', 'details', 'quantity', 'created_at']);
+                $item['details'] = json_encode(Arr::only($item, ['title']));
+                $attributes = Arr::only($item, ['product_id', 'details', 'quantity', 'price', 'created_at']);
 
                 Auth::user()->cart()->create($attributes);
             }

@@ -20,16 +20,12 @@
                         </a>
                     </li>
                     <li class="nav-item position-relative dropdown">
-                        @php $total = 0 @endphp
-                        @foreach((array) session('cart') as $id => $details)
-                            @php $total += $details['price'] * $details['quantity'] @endphp
-                        @endforeach
                         <a href="#" class="nav-link dropdown-toggle {{ !Route::is('cart.*') ?: 'active' }}" data-bs-toggle="dropdown" title="Cart">
                             Cart
                             <i class="fab fa-opencart">
-                                <span class="position-absolute top-0 font-size-10">{{ count((array) session('cart')) === 0 ? '' : count((array) session('cart')) }}</span>
+                                <span class="position-absolute top-0 font-size-10">{{ cartCount() }}</span>
                             </i>
-                            <span class="font-size-10">{{ $total === 0 ? '' : $total }}</span>
+                            <span class="font-size-10">{{ cartTotal() }}</span>
                         </a>
                         @if(session('cart'))
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -61,14 +57,17 @@
                             {{ Auth::user()->name }} <i class="fas fa-user"></i>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @if(isAdmin())
-                                <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            @if(cartCount())
+                                <li><a class="dropdown-item" href="{{ route('order.index') }}">Checkout</a></li>
                             @endif
                             <li><a class="dropdown-item" href="#">Profile</a></li>
                             <li><a class="dropdown-item" href="#">Info</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
+                            @if(isAdmin())
+                                <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            @endif
                             <li>
                                 <a class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                    href="{{ route('logout') }}">{{ __('Sign Out') }}</a>

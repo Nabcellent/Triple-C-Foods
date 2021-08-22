@@ -107,10 +107,11 @@ class CartController extends Controller
 
             if(isset($cart[$request->input('id')])) {
                 unset($cart[$request->input('id')]);
-                session()->put('cart', $cart);
+
+                Session::put('cart', $cart);
             }
 
-            session()->flash('toast_success', 'Product removed successfully');
+            Session::flash('toast_success', 'Product removed successfully');
         }
     }
 }

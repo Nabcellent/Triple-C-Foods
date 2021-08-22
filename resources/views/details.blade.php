@@ -3,13 +3,13 @@
 @section('content')
 
     <div id="details">
-        <div class="row pt-4">
+        <div class="row p-4">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         <form action="{{ route('cart.store', ['id' => $product->id]) }}" method="POST" class="row">
                             @csrf
-                            <div class="col-xl-5">
+                            <div class="col-lg-6">
                                 <div class="product-detail">
                                     <div class="row">
                                         <div class="col-3">
@@ -39,27 +39,28 @@
                                                 </div>
                                                 @endforeach
                                             </div>
-                                            <div class="row text-center mt-2">
-                                                <div class="col-sm-6">
-                                                    <div class="d-grid">
-                                                        <button type="submit" class="btn btn-primary waves-effect waves-light mt-2 me-1">
-                                                            <i class="fas fa-shopping-cart me-2"></i> Add to cart
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="d-grid">
-                                                        <button type="button" class="btn btn-light waves-effect  mt-2 waves-light">
-                                                            <i class="fas fa-shopping-basket me-2"></i>Order now
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center mt-2">
+                                        <div class="col-auto">
+                                            <a href="{{ route('products.index') }}" class="btn btn-primary waves-effect waves-light me-1">
+                                                <i class="fas fa-arrow-left"></i> Continue Shopping
+                                            </a>
+                                        </div>
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light me-1">
+                                                <i class="fas fa-cart-plus"></i> Add to cart
+                                            </button>
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="button" class="btn btn-light waves-effect waves-light">
+                                                <i class="fas fa-shipping-fast"></i> Order now
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-7">
+                            <div class="col-lg-6">
                                 <div class="mt-4 mt-xl-3 ps-xl-4">
                                     <h4 class="font-size-20 mb-3">{{ $product->title }}</h4>
                                     <div class="text-muted"><span class="badge bg-success font-size-14 me-1"><i class="mdi mdi-star"></i> 4.2</span>
@@ -74,17 +75,17 @@
                                                 <h5 class="font-size-14 mb-3">Product description: </h5>
                                                 <div class="product-desc">
                                                     <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
-                                                        <li class="nav-item">
+                                                        <li class="nav-item small">
                                                             <a class="nav-link active" id="desc-tab" data-bs-toggle="tab" href="#desc" role="tab">Description</a>
                                                         </li>
-                                                        <li class="nav-item">
+                                                        <li class="nav-item small">
                                                             <a class="nav-link" id="specifi-tab" data-bs-toggle="tab" href="#specifi" role="tab">Specifications</a>
                                                         </li>
                                                     </ul>
-                                                    <div class="tab-content border border-top-0 p-4">
+                                                    <div class="tab-content px-2">
                                                         <div class="tab-pane fade show active" id="desc" role="tabpanel">
                                                             <div class="text-muted p-2">
-                                                                <p>{{ $product->description }}</p>
+                                                                <small>{{ $product->description }}</small>
                                                             </div>
                                                         </div>
                                                         <div class="tab-pane fade" id="specifi" role="tabpanel">

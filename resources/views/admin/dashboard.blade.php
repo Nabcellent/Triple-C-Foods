@@ -27,7 +27,7 @@
                     <div class="flex flex-wrap">
                         <div class="flex-shrink-0 w-full flex-1 px-2">
                             <h5 class="text-gray-500">Today's orders</h5>
-                            <h4>+17</h4>
+                            <h4>+{{ $todaysOrders }}</h4>
                         </div>
                         <div class="flex-shrink-0 w-full flex-1 px-2 items-center">
                             <div class="p-2 text-red-900 text-right">
@@ -94,151 +94,45 @@
                                         </tr>
                                         </thead>
                                         <tbody class="text-gray-600 text-sm font-light">
-                                        <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                            <th class="py-3 px-6 text-left whitespace-nowrap">1</th>
-                                            <td class="py-3 px-6 text-left">
-                                                <div class="flex items-center">
-                                                    <div class="mr-2">
-                                                        <img class="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" alt=""/>
+
+                                        @forelse($newOrders as $order)
+                                            <?php
+                                            $images = glob('images/faces/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+
+                                            $randomImage = $images[array_rand($images)];
+                                            ?>
+                                            <tr class="border-b border-gray-200 {{ fmod($loop->iteration, 2) == 0 ?: ' bg-gray-50' }} hover:bg-gray-100">
+                                                <th class="py-3 px-6 text-left whitespace-nowrap">{{ $loop->iteration }}</th>
+                                                <td class="py-3 px-6 text-left">
+                                                    <div class="flex items-center">
+                                                        <div class="mr-2">
+                                                            <img class="w-6 h-6 rounded-full" src="{{ asset($randomImage) }}" alt=""/>
+                                                        </div>
+                                                        <span>{{ $order->user->name }}</span>
                                                     </div>
-                                                    <span>Eshal Rosas</span>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                {{ date('d-m-Y', mt_rand(1, time())) }}
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">Active</span>
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                <div class="flex item-center justify-center">
-                                                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                                        </svg>
+                                                </td>
+                                                <td class="py-3 px-6 text-center">{{ \Carbon\Carbon::createFromTimestamp(strtotime($order->created_at))->diffForHumans() }}</td>
+                                                <td class="py-3 px-6 text-center">
+                                                    <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">Active</span>
+                                                </td>
+                                                <td class="py-3 px-6 text-center">
+                                                    <div class="flex item-center justify-center">
+                                                        <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                                 stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                                            </svg>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100">
-                                            <th class="py-3 px-6 text-left whitespace-nowrap">2</th>
-                                            <td class="py-3 px-6 text-left">
-                                                <div class="flex items-center">
-                                                    <div class="mr-2">
-                                                        <img class="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/women/2.jpg" alt=""/>
-                                                    </div>
-                                                    <span>Anita Rodriquez</span>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                {{ date('d-m-Y', mt_rand(1, time())) }}
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">Completed</span>
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                <div class="flex item-center justify-center">
-                                                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                            <th class="py-3 px-6 text-left whitespace-nowrap">3</th>
-                                            <td class="py-3 px-6 text-left">
-                                                <div class="flex items-center">
-                                                    <div class="mr-2">
-                                                        <img class="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/3.jpg" alt=""/>
-                                                    </div>
-                                                    <span>Taylan Bush</span>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                {{ date('d-m-Y', mt_rand(1, time())) }}
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                <span class="bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs">Pending</span>
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                <div class="flex item-center justify-center">
-                                                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100">
-                                            <th class="py-3 px-6 text-left whitespace-nowrap">4</th>
-                                            <td class="py-3 px-6 text-left">
-                                                <div class="flex items-center">
-                                                    <div class="mr-2">
-                                                        <img class="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/4.jpg" alt=""/>
-                                                    </div>
-                                                    <span>Tarik Novak</span>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                {{ date('d-m-Y', mt_rand(1, time())) }}
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                <span class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">Cancelled</span>
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                <div class="flex item-center justify-center">
-                                                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                            <th class="py-3 px-6 text-left whitespace-nowrap">5</th>
-                                            <td class="py-3 px-6 text-left">
-                                                <div class="flex items-center">
-                                                    <div class="mr-2">
-                                                        <img class="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/5.jpg" alt=""/>
-                                                    </div>
-                                                    <span>Oscar Howard</span>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                {{ date('d-m-Y', mt_rand(1, time())) }}
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">Active</span>
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                <div class="flex item-center justify-center">
-                                                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr><td colspan="5"><div class="text-center my-2">NO ORDERS</div></td></tr>
+                                        @endforelse
+
                                         </tbody>
                                     </table>
                                     <div class="text-right py-1 px-3">
@@ -291,7 +185,8 @@
                                                 </div>
                                             </td>
                                             <td class="px-6 py-3 whitespace-nowrap">
-                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                <span
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                                   Active
                                                 </span>
                                             </td>
