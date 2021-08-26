@@ -30,21 +30,24 @@
                     <div class="w-full h-60 md:w-1/4 lg:h-64 flex items-center justify-center">
                         <?php
                         $images = glob('images/faces/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-
                         $randomImage = $images[array_rand($images)];
                         ?>
                         <img class="w-60 h-60 rounded-full" src="{{ asset($randomImage) }}" alt=""/>
                     </div>
                     <div class="w-full max-w-xl mx-auto mt-5 md:mt-0 md:w-3/4">
-                        <div class="flex justify-between">
+                        <div class="flex justify-between items-center">
                             <div>
-                                <h3 class="text-gray-700 uppercase text-lg">{{ $order->user->name }}</h3>
-                                <span class="text-gray-500 mt-3">TOTAL AMOUNT - <span
-                                        class="text-green-700 font-bold">KES {{ $order->total }}/-</span></span>
+                                <h3 class="text-gray-700 uppercase text-lg">Client: {{ $order->user->name }}</h3>
+                                <h5>Email: {{ $order->user->email }}</h5>
                             </div>
                             <div class="border-l-2 pl-8">
                                 <h3 class="text-gray-700 uppercase text-lg">No. of items ordered: <span
                                         class="text-pink-900">{{ $order->order_products_count }}</span></h3>
+                                @if($order->discount)
+                                    <h4 class="text-gray-500 mt-3">Discount - <span class="text-red-700">KES {{ $order->discount }}/-</span></h4>
+                                @endif
+                                <span class="text-gray-500 mt-3">TOTAL AMOUNT - <span class="text-green-700 font-bold">KES {{ $order->total }}/-</span></span><br>
+                                <hr class="my-3">
                                 <span class="text-gray-500 mt-3">DATE ORDERED - <span
                                         class="text-pink-900 font-bold">{{ \Carbon\Carbon::createFromTimestamp(strtotime($order->created_at))->diffForHumans() }}</span></span>
                             </div>

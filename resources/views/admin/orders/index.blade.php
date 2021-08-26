@@ -33,6 +33,14 @@
                                             <?php
                                             $images = glob('images/faces/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
                                             $randomImage = $images[array_rand($images)];
+                                            $status = $order->status;
+                                            $color = match (true) {
+                                                $status === 'pending' => 'purple',
+                                                $status === 'completed', $status === 'delivered' => 'green',
+                                                $status === 'cancelled' => 'red',
+                                                $status === 'hold', $status === 'in process' => 'yellow',
+                                                default => 'gray'
+                                            }
                                             ?>
                                             <tr class="border-b border-gray-200 hover:bg-gray-100">
                                                 <th class="py-3 px-6 text-left whitespace-nowrap">{{ $i }}</th>
@@ -49,7 +57,7 @@
                                                 <td class="py-3 px-6 text-center text-green-700 font-bold">{{ $order->total }}/=</td>
                                                 <td class="py-3 px-6 text-center">{{ \Carbon\Carbon::createFromTimestamp(strtotime($order->created_at))->diffForHumans() }}</td>
                                                 <td class="py-3 px-6 text-center">
-                                                    <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">{{ ucfirst($order->status) }}</span>
+                                                    <span class="bg-{{$color}}-200 text-{{$color}}-900 py-1 px-3 rounded-full text-xs">{{ ucfirst($order->status) }}</span>
                                                 </td>
                                                 <td class="py-3 px-6 text-center">
                                                     <div class="flex item-center justify-center">

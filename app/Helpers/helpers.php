@@ -66,7 +66,7 @@ function cartTotal(): int|string {
     $total = 0;
 
     foreach((array) session('cart') as $details)
-        $total += $details['price'] * $details['quantity'];
+        $total += discountedPrice($details['price'], $details['discount']) * $details['quantity'];
 
     return ($total === 0) ? '' : $total;
 }
@@ -75,13 +75,16 @@ function cartItems(): array {
     return Session::get('cart');
 }
 
-
 function calcDiscountPrice($product): int {
     if($product->discount > 0) {
         $discountPrice = $product->price - ($product->price * $product->discount / 100);
     }
 
     return $discountPrice ?? 0;
+}
+
+function discountedPrice($price, $discount): int {
+    return $price - ($price * $discount / 100);
 }
 
 function orderStatuses(): array {

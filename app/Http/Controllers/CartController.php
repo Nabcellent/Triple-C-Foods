@@ -47,8 +47,9 @@ class CartController extends Controller
             $cart[$id] = [
                 "title" => $product->title,
                 "quantity" => $request->input('quantity'),
-                "price" => $product->discount ? calcDiscountPrice($product) : $product->price,
+                "price" => $product->price,
                 "image" => $product->image,
+                "discount" => $product->discount,
                 'created_at' => now()
             ];
         }

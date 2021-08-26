@@ -110,7 +110,7 @@
                                                 <div class="mt-3">
                                                     <small>Quantity</small>
                                                     <div style="max-width: 7rem;" class="product-cart-touchspin">
-                                                        <input class="form-control" type="text" value="1" name="quantity" aria-label>
+                                                        <input class="form-control" type="text" value="{{ old('quantity', 1) }}" min="1" name="quantity" aria-label>
                                                     </div>
                                                 </div>
                                             </div>

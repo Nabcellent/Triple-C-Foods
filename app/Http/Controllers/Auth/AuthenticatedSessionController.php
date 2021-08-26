@@ -47,9 +47,10 @@ class AuthenticatedSessionController extends Controller {
         $cartItems = Cart::where('user_id', Auth::id());
 
         if($cartItems->count()) {
-            $cart = $cartItems->get()->mapWithKeys(function($item, $key) {
+            $cart = $cartItems->get()->mapWithKeys(function($item) {
                 $item->title = $item->product->title;
                 $item->image = $item->product->image;
+                $item->discount = json_decode($item->details)->discount;
 
                 return [$item->product_id => $item->toArray()];
             })->toArray();
@@ -70,7 +71,7 @@ class AuthenticatedSessionController extends Controller {
         if(!empty(Session::get('cart'))) {
             foreach(Session::get('cart') as $id => $item) {
                 $item['product_id'] = $id;
-                $item['details'] = json_encode(Arr::only($item, ['title']));
+                $item['details'] = json_encode(Arr::only($item, ['discount']));
                 $attributes = Arr::only($item, ['product_id', 'details', 'quantity', 'price', 'created_at']);
 
                 Auth::user()->cart()->create($attributes);

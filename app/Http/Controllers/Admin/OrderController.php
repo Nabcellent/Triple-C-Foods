@@ -56,12 +56,11 @@ class OrderController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request): RedirectResponse {
         $orderData = $request->all();
 
         $validation = Validator::make($request->all(), [
-            'phone' => ['required', 'numeric', 'digits_between:9,12',],
+            'phone' => ['required', 'numeric', 'digits_between:9,12'],
             'pay_method' => 'present|required',
         ], [
             'phone.regex' => 'The phone number is invalid.',
@@ -76,12 +75,11 @@ class OrderController extends Controller
         try {
             DB::transaction(function() use ($orderData) {
                 $orderData['order_no'] = 'NFC0' . DB::select("SHOW TABLE STATUS LIKE 'orders'")[0]->Auto_increment;
-
                 $order = Auth::user()->orders()->create($orderData);
 
                 foreach(cartItems() as $id => $item) {
                     $item['product_id'] = $id;
-                    $item['details'] = json_encode(Arr::only($item, ['title']));
+                    $item['details'] = json_encode(Arr::only($item, ['discount']));
 
                     Product::find($id)->decrement('stock', $item['quantity']);
 

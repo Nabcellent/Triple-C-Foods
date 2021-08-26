@@ -4,8 +4,8 @@
 
     <div id="cart" class="container p-10" style="min-height: 75vh">
         <section>
-            <div class="row">
-                <form action="{{ route('order.store') }}" method="POST" class="col-xl-7">
+            <form class="row" action="{{ route('order.store') }}" method="POST">
+                <div class="col-xl-7">
                     @csrf
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         <div class="accordion-item mb-2">
@@ -61,7 +61,7 @@
                                                 <div class="col-12 col-md-6">
                                                     <div class="mb-3">
                                                         <label for="billing-phone">Phone *</label>
-                                                        <input type="number" class="form-control" name="phone" id="billing-phone" value="{{ old('phone') }}" placeholder="Enter Phone no." required>
+                                                        <input type="tel" class="form-control" name="phone" id="billing-phone" value="{{ old('phone') }}" placeholder="Enter Phone no." required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -135,7 +135,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
                 <div class="col-xl-5">
                     <div class="card checkout-order-summary">
                         <div class="card-body">
@@ -152,49 +152,51 @@
                                     </thead>
                                     <tbody>
 
-                                    @php $total = 0 @endphp
-                                    @foreach(session('cart') as $id => $details)
-                                        @php $total += $details['price'] * $details['quantity'] @endphp
+                                    @php $total = $discount = 0 @endphp
+                                    @foreach(session('cart') as $id => $cart)
+                                        <?php
+                                            $price = discountedPrice($cart['price'], $cart['discount']);
+                                            $total += $price * $cart['quantity'];
+                                            $discount += $cart['price'] - $price;
+                                        ?>
                                         <tr>
                                             <th scope="row">
-                                                <a href="{{ route('products.show', ['id' => $id]) }}" class="link-dark d-flex font-size-11">
-                                                    <img src="{{ asset('images/kuku/' . $details['image']) }}" alt="product-img" title="product-img"
+                                                <a href="{{ route('products.show', ['id' => $id]) }}" class="link-dark d-flex font-size-12">
+                                                    <img src="{{ asset('images/kuku/' . $cart['image']) }}" alt="product-img" title="product-img"
                                                          class="avatar-md rounded-circle me-1">
-                                                    {{ $details['title'] }}
+                                                    {{ $cart['title'] }}
                                                 </a>
                                             </th>
                                             <td>
                                                 <h5 class="font-size-14 text-truncate">
                                                     {{ 'details' }}
                                                 </h5>
-                                                <small class="text-muted mb-0">KSH {{ $details['price'] . ' x ' . $details['quantity'] }}</small>
+                                                <small class="text-muted mb-0">KSH {{ $price . ' x ' . $cart['quantity'] }}</small>
                                             </td>
-                                            <td>{{ $details['price'] * $details['quantity'] }}</td>
+                                            <td>{{ $price * $cart['quantity'] }}</td>
                                         </tr>
                                     @endforeach
 
                                     <tr>
-                                        <td colspan="2">
-                                            <h5 class="font-size-14 m-0">Sub Total :</h5></td>
-                                        <td> 780</td>
+                                        <td colspan="2"><h5 class="font-size-14 m-0">Sub Total :</h5></td>
+                                        <td>780</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">
-                                            <h5 class="font-size-14 m-0">Discount :</h5></td>
-                                        <td> - 78</td>
+                                        <td colspan="2"><h5 class="font-size-14 m-0">Discount :</h5></td>
+                                        <td> - {{ $discount }}</td>
                                     </tr>
                                     <tr class="bg-light">
-                                        <td colspan="2">
-                                            <h5 class="font-size-14 m-0">Total:</h5></td>
+                                        <td colspan="2"><h5 class="font-size-14 m-0">Total:</h5></td>
                                         <td> KSH {{ $total }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
+                                <input type="hidden" name="discount" value="{{ $discount }}">
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </section>
     </div>
     </div>

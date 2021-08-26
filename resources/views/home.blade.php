@@ -20,7 +20,7 @@
                                         the cost.</p>
                                     <footer>~ Lil Nabz</footer>
                                 </blockquote>
-                                <a href="#social-media-sticky" class="btn btn-primary btn-md">View menu...</a>
+                                <a href="#social-media-sticky" class="btn btn-primary btn-md">Explore menu...</a>
                             </div>
                         </div>
                     </div>
@@ -131,10 +131,9 @@
                 <div class="col-md-9 align-self-center swiper">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"
-                                 style="background-image:url({{ asset('images/kuku/9cff11d6c12de722215055dde430ce02-700.jpg') }})"></div>
-                            <div class="swiper-slide" style="background-image:url({{ asset('images/kuku/715490.jpg') }})"></div>
-                            <div class="swiper-slide" style="background-image:url({{ asset('images/kuku/Chicken-meat-food_1920x1440.jpg') }})"></div>
+                            <div class="swiper-slide" style="background-image:url({{ asset('images/carousel/photo-1612170153139-6f881ff067e0.jpeg') }})"></div>
+                            <div class="swiper-slide" style="background-image:url({{ asset('images/carousel/foo_1629304072.jpg') }})"></div>
+                            <div class="swiper-slide" style="background-image:url({{ asset('images/carousel/foo_1629304088.jpg') }})"></div>
                         </div>
                         <!-- Add Arrows -->
                         <div class="swiper-button-next"></div>
@@ -153,12 +152,11 @@
                 <div class="col-md-9 align-self-center swiper">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide" style="background-image:url({{ asset('images/kuku/Chicken-meat-food_1920x1440.jpg') }})"></div>
-                            <div class="swiper-slide" style="background-image:url({{ asset('images/kuku/DSC_6705111.jpg') }})"></div>
+                            <div class="swiper-slide" style="background-image:url({{ asset('images/carousel/5.jpg') }})"></div>
+                            <div class="swiper-slide" style="background-image:url({{ asset('images/carousel/foo_1629304111.jpg') }})"></div>
+                            <div class="swiper-slide" style="background-image:url({{ asset('images/carousel/foo_1629304144.jpg') }})"></div>
                             <div class="swiper-slide" style="background-image:url({{ asset('images/4757510.jpg') }})"></div>
-                            <div class="swiper-slide"
-                                 style="background-image:url({{ asset('images/kuku/Chicken_food_meat_berries-1563105.jpg!d.jpeg') }})"></div>
-                            <div class="swiper-slide" style="background-image:url({{ asset('images/kuku/715490.jpg') }})"></div>
+                            <div class="swiper-slide" style="background-image:url({{ asset('images/carousel/6.jpg') }})"></div>
                         </div>
                         <!-- Add Arrows -->
                         <div class="swiper-button-next"></div>
@@ -175,7 +173,7 @@
                         <li>Chicken Lollypop</li>
                         <li>Murgh Tikka</li>
                         <li>Punjabi stick</li>
-                        <li>Oriental Stick</li>
+                        <li>Omelette</li>
                         <li>Churtney Murgh Tikka</li>
                     </ol>
                 </div>
@@ -336,7 +334,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <img src="{{ asset('images/kuku/DSC_6705111.jpg') }}" alt="">
+                    <img src="{{ asset('images/carousel/4.jpg') }}" alt="">
                 </div>
                 <div class="col subscribe">
                     <h2>Subscribe</h2>

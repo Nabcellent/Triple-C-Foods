@@ -19,7 +19,7 @@ html, body {
     scroll-behavior: smooth;
 }
 body {
-    background-color: rgba(100, 200, 255, .7);
+    background-color: rgba(200, 100, 50, .7);
 }
 .scroll-to-top {
     transition: all .3s ease;
@@ -370,7 +370,7 @@ footer p {
     border-top: .1rem solid gray;
 }
 .socket p {
-    color: #40474e;
+    color: rgb(210, 210, 210);
     font-size: 10pt;
     margin-bottom: .3rem;
 }

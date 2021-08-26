@@ -40,7 +40,7 @@
                                                 </div>
                                                 <div class="col-10 p-0">
                                                     <p>{{ $details['title'] }}</p>
-                                                    <span class="price text-danger">KSH {{ $details['price'] }}</span>
+                                                    <span class="price text-danger">KSH {{ discountedPrice($details['price'],$details['discount']) }}</span>
                                                     <span class="count"> Qty:{{ $details['quantity'] }}</span>
                                                 </div>
                                             </div>

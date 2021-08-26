@@ -102,12 +102,22 @@
 
                                             <?php $i = $orders->firstItem(); ?>
                                             @forelse($orders as $order)
+                                                <?php
+                                                $status = $order->status;
+                                                $color = match (true) {
+                                                    $status === 'pending' => 'warning',
+                                                    $status === 'completed', $status === 'delivered' => 'success',
+                                                    $status === 'cancelled' => 'danger',
+                                                    $status === 'in process' => 'primary',
+                                                    default => 'secondary'
+                                                }
+                                                ?>
                                                 <tr data-bs-toggle="collapse" data-bs-target="#products{{ $order->id }}" style="cursor: pointer">
                                                     <th scope="row">{{ $i }}</th>
                                                     <td><a href="#" class="text-dark">#{{ $order->order_no }}</a></td>
                                                     <td>{{ $order->total }}/=</td>
                                                     <td>{{ \Carbon\Carbon::createFromTimestamp(strtotime($order->created_at))->diffForHumans() }}</td>
-                                                    <td><span class="badge rounded-pill bg-primary font-size-12">{{ $order->status }}</span></td>
+                                                    <td><span class="badge rounded-pill bg-{{$color}} font-size-12">{{ $order->status }}</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="6" class="p-0">
@@ -123,29 +133,36 @@
                                                                 </thead>
                                                                 <tbody>
 
-                                                                <?php $total = 0; ?>
+                                                                <?php $total = $discount = 0; ?>
                                                                 @foreach($order->orderProducts as $item)
                                                                     <?php
-                                                                    $subTotal = $item->price * $item->quantity;
+                                                                        $price = discountedPrice($item->price, json_decode($item->details)->discount);
+                                                                        $subTotal = $price * $item->quantity;
+                                                                        $discount += $item->price - $price;
                                                                     ?>
                                                                     <tr>
                                                                         <td>{{ $item->product->title }}</td>
                                                                         <td>{{ $item->quantity }}</td>
-                                                                        <td>{{ $item->price }}/-</td>
+                                                                        <td>{{ $price }}/-</td>
                                                                         <td>{{ $subTotal }}/=</td>
                                                                     </tr>
                                                                     <?php $total += $subTotal ?>
                                                                 @endforeach
 
-                                                                <tr class="">
+                                                                @if($discount)
+                                                                    <tr>
+                                                                        <th colspan="3" class="text-right">Discount:</th>
+                                                                        <td colspan="3" class="fw-bold">{{ $discount }}/=</td>
+                                                                    </tr>
+                                                                @endif
+                                                                <tr>
                                                                     <th colspan="3" class="text-right">GRAND TOTAL:</th>
                                                                     <td colspan="3" class="fw-bold">{{ $total }}/=</td>
                                                                 </tr>
-                                                                <tr class="">
+                                                                <tr>
                                                                     <th colspan="3" class="text-right">Payment Method:</th>
                                                                     <td colspan="3">{{ ucfirst($order->pay_method) }}</td>
                                                                 </tr>
-
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -181,18 +198,18 @@
     </div>
 
     <script>
-        function showTime(){
+        function showTime() {
             let date = new Date();
             let h = date.getHours(); // 0 - 23
             let m = date.getMinutes(); // 0 - 59
             let s = date.getSeconds(); // 0 - 59
             let session = "AM";
 
-            if(h === 0){
+            if (h === 0) {
                 h = 12;
             }
 
-            if(h > 12) {
+            if (h > 12) {
                 h = h - 12;
                 session = "PM";
             }

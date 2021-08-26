@@ -14,22 +14,25 @@
                             <h5 class="mb-4">Cart (<span>{{ count((array) session('cart')) }}</span> items)</h5>
                             @php $total = 0 @endphp
                             @if(session('cart'))
-                                @foreach(session('cart') as $id => $details)
-                                    @php $total += $details['price'] * $details['quantity'] @endphp
+                                @foreach(session('cart') as $id => $cart)
+                                    @php
+                                        $price = discountedPrice($cart['price'], $cart['discount']);
+                                        $total += $price * $cart['quantity']
+                                    @endphp
                                     <div class="row mb-4 align-items-center" data-id="{{ $id }}">
                                         <div class="col-md-5 col-lg-3 col-xl-3">
                                             <div class="bg-secondary shadow rounded py-3 mb-3 mb-md-0">
-                                                <img class="img-fluid w-100" src="{{ asset('images/kuku/' . $details['image']) }}" alt="Sample">
+                                                <img class="img-fluid w-100" src="{{ asset('images/kuku/' . $cart['image']) }}" alt="Sample">
                                             </div>
                                         </div>
                                         <div class="col-md-7 col-lg-9 col-xl-9">
                                             <div class="">
-                                                <h6 class="mb-3"><a href="{{ route('products.show', ['id' => $id]) }}">{{ $details['title'] }}</a></h6>
+                                                <h6 class="mb-3"><a href="{{ route('products.show', ['id' => $id]) }}">{{ $cart['title'] }}</a></h6>
                                                 <div class="d-flex justify-content-between">
                                                     <p class="text-muted mb-2 small">Quantity</p>
                                                     <div style="max-width: 7rem;" class="product-cart-touchspin">
                                                         <input class="form-control quantity update-cart" type="text"
-                                                               value="{{ $details['quantity'] }}" name="quantity" aria-label>
+                                                               value="{{ $cart['quantity'] }}" max="7" name="quantity" aria-label>
                                                     </div>
                                                     <div class="font-size-12">
                                                         <a href="javascript:void(0)" class="remove-from-cart"><i class="fa fa-trash"></i></a>
@@ -37,12 +40,17 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <span class="font-size-12">
-                                                    <strong>Unit Price:</strong> KSH {{ $details['price'] }}/=
+                                                <span class="font-size-13">
+                                                    <strong>Unit Price:</strong> KSH
+                                                    @if($cart['discount'])
+                                                        {{ $price }} <del class="text-danger font-size-12">KSH {{ $cart['price'] }}</del>
+                                                    @else
+                                                        {{ $cart['price'] }}/=
+                                                    @endif
                                                 </span>
                                                 <p class="mb-0">
                                                     <strong>Subtotal:</strong>
-                                                    <small>KSH {{ $details['price'] * $details['quantity'] }}/=</small>
+                                                    <small>KSH {{ $price * $cart['quantity'] }}/=</small>
                                                 </p>
                                             </div>
                                         </div>
@@ -120,7 +128,7 @@
                 maxboostedstep: 10,
             });
 
-            $(".update-cart").change(function (e) {
+            $(".update-cart").on('change', function (e) {
                 e.preventDefault();
 
                 let elem = $(this);
