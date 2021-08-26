@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Exception;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -19,9 +14,15 @@ class UserController extends Controller
      * @return Response
      */
     public function index(): Response {
-        $data['users'] = User::where('is_admin', '!=', 7)->latest()->paginate(10);
+        $data = [
+            'user' => Auth::user(),
+            'orders' => Auth::user()->orders()->with('orderProducts')->latest()->paginate(5),
+            'orderCount' => Auth::user()->orders()->count()
+        ];
 
-        return response()->view('admin.users.index', $data);
+        //dd($data['orders'][0]->orderProducts);
+
+        return response()->view('profile', $data);
     }
 
     /**
@@ -37,7 +38,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return Response
      */
     public function store(Request $request)
@@ -59,69 +60,34 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return Response
      */
-    public function edit(int $id): Response {
-        $data = [
-            'user' => User::find($id),
-        ];
-
-        return response()->view('admin.users.edit', $data);
+    public function edit($id)
+    {
+        //
     }
 
     /**
-     * Update the specified resource profile in storage.
+     * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int     $id
-     * @return RedirectResponse
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return Response
      */
-    public function updateProfile(Request $request, int $id): RedirectResponse {
-        $request->validate(['name' =>'required|string', 'email' => ['required', 'email', Rule::unique('users')->ignore($id)]]);
-
-        try {
-            User::find($id)->update($request->all());
-
-            return updateOk('Profile updated successfully');
-        } catch(Exception $e) {
-            return toastError($e->getMessage(), 'Unable to update password');
-        }
-    }
-
-    /**
-     * Update the specified resource password in storage.
-     *
-     * @param Request $request
-     * @param int     $id
-     * @return RedirectResponse
-     */
-    public function updatePassword(Request $request, int $id): RedirectResponse {
-        $request->validate(
-            ['current_password' => 'current_password', 'password' => 'required|confirmed'],
-            ['current_password' => 'The current password is incorrect']
-        );
-
-        try {
-            User::find($id)->update(['password' => Hash::make($request->input('password'))]);
-
-            return updateOk('Password changed successfully');
-        } catch(Exception $e) {
-            return toastError($e->getMessage(), 'Unable to change password');
-        }
+    public function update(Request $request, $id)
+    {
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return RedirectResponse
+     * @param  int  $id
+     * @return Response
      */
-    public function destroy(int $id): RedirectResponse {
-        if(User::destroy($id)) {
-            return back()->with('toast_success', 'User deleted.');
-        } else {
-            return toastError('unable to delete user', 'Unable to delete user');
-        }
+    public function destroy($id)
+    {
+        //
     }
 }

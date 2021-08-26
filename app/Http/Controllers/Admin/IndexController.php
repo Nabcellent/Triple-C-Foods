@@ -19,6 +19,7 @@ class IndexController extends Controller {
             'totalStock' => Product::sum('stock'),
             'todaysUsers' => User::whereDate('created_at', now()->toDateString())->count(),
             'todaysOrders' => Order::whereDate('created_at', now()->toDateString())->count(),
+            'todaysMoney' => Order::where('status', 'completed')->whereDate('created_at', now()->toDateString())->sum('total'),
         ];
 
         return view('admin.dashboard', $data);

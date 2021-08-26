@@ -14,7 +14,7 @@
                                     <div class="row">
                                         <div class="col-3">
                                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                                <a class="nav-link active" id="product-1-tab" data-bs-toggle="pill" href="#product-1" role="tab">
+                                                <a class="nav-link active" id="product-main-tab" data-bs-toggle="pill" href="#product-main" role="tab">
                                                     <img src="{{ asset('images/kuku/' . $product->image) }}" alt="" class="img-fluid mx-auto d-block tab-img rounded">
                                                 </a>
                                                 @foreach($product->productImages as $image)
@@ -29,7 +29,7 @@
                                                 <div class="product-wishlist">
                                                     <a href="#"> <i class="fas fa-heart"></i> </a>
                                                 </div>
-                                                <div class="tab-pane fade show active" id="product-1" role="tabpanel">
+                                                <div class="tab-pane fade show active" id="product-main" role="tabpanel">
                                                     <img src="{{ asset('images/kuku/' . $product->image) }}" alt="" class="img-fluid mx-auto d-block"
                                                          data-zoom="assets/images/product/img-1.png">
                                                 </div>
@@ -41,21 +41,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row text-center mt-2">
+                                    <div class="row justify-content-start mt-2">
                                         <div class="col-auto">
                                             <a href="{{ route('products.index') }}" class="btn btn-primary waves-effect waves-light me-1">
                                                 <i class="fas fa-arrow-left"></i> Continue Shopping
                                             </a>
-                                        </div>
-                                        <div class="col">
-                                            <button type="submit" class="btn btn-primary waves-effect waves-light me-1">
-                                                <i class="fas fa-cart-plus"></i> Add to cart
-                                            </button>
-                                        </div>
-                                        <div class="col-auto">
-                                            <button type="button" class="btn btn-light waves-effect waves-light">
-                                                <i class="fas fa-shipping-fast"></i> Order now
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -67,8 +57,11 @@
                                         234 Reviews
                                     </div>
                                     <h6 class="mt-4 pt-2">
-                                        <del class="text-muted me-2">$280</del>
-	                                    KSH {{ $product->price }} <span class="text-danger font-size-14 ms-2">- 20 % Off</span></h6>
+                                        @if($product->discount)
+                                            <del class="text-muted me-2 small">KES {{ $product->price }}/-</del>
+                                            KES {{ calcDiscountPrice($product) }}/- <span class="text-danger font-size-14 fw-bolder ms-2">- {{ $product->discount }} % Off</span>
+                                        @else <span class="text-gray-500 mt-3">KES {{ $product->price }}/-</span> @endif
+                                    </h6>
                                     <div>
                                         <div class="row">
                                             <div class="col mt-4">
@@ -93,24 +86,16 @@
                                                                 <table class="table table-nowrap mb-0">
                                                                     <tbody>
                                                                     <tr>
-                                                                        <th scope="row" style="width: 20%;">Category</th>
-                                                                        <td>Shoes</td>
+                                                                        <th scope="row" style="width: 20%;">Spicy</th>
+                                                                        <td>No</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row">Brand</th>
-                                                                        <td>Nike</td>
+                                                                        <th scope="row">Salty</th>
+                                                                        <td>Yes</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row">Color</th>
-                                                                        <td>Gray</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th scope="row">Quality</th>
-                                                                        <td>High</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th scope="row">Material</th>
-                                                                        <td>Leather</td>
+                                                                        <th scope="row">Sticky</th>
+                                                                        <td>Yes</td>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
@@ -120,7 +105,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row justify-content-between align-items-end">
                                             <div class="col-lg-5 col-sm-4">
                                                 <div class="mt-3">
                                                     <small>Quantity</small>
@@ -128,6 +113,16 @@
                                                         <input class="form-control" type="text" value="1" name="quantity" aria-label>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col">
+                                                <button type="submit" class="btn btn-primary waves-effect waves-light me-1">
+                                                    Add to cart <i class="fas fa-cart-plus"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-auto">
+                                                <button type="button" class="btn btn-light waves-effect waves-light">
+                                                    <i class="fas fa-shipping-fast"></i> Order now
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -186,8 +181,8 @@
         <script src="{{ asset('vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
         <script>
             $("input[name='quantity']").TouchSpin({
-                min: 0,
-                max: 100,
+                min: 1,
+                max: {{ $product->stock }},
                 boostat: 5,
                 maxboostedstep: 10,
             });

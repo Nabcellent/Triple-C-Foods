@@ -31,9 +31,13 @@
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-3">
-                                <div class="w-full px-3 mb-6 md:mb-0">
+                                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <label for="grid-first-name">Stock</label>
                                     <input class="mb-3" name="stock" type="number" placeholder="Amount of stock" aria-label value="{{ old('stock', $product->stock) }}">
+                                </div>
+                                <div class="w-full md:w-1/2 px-3">
+                                    <label for="grid-first-name">Discount <small>(%)</small></label>
+                                    <input class="mb-3" name="discount" type="number" max="100" min="0" step="1" placeholder="Discount" aria-label value="{{ old('stock', $product->discount) }}">
                                 </div>
                             </div>
                             <div class="flex flex-wrap -mx-3 mb-3">

@@ -60,7 +60,7 @@
                             @if(cartCount())
                                 <li><a class="dropdown-item" href="{{ route('order.index') }}">Checkout</a></li>
                             @endif
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('user.index') }}">Profile</a></li>
                             <li><a class="dropdown-item" href="#">Info</a></li>
                             <li>
                                 <hr class="dropdown-divider">

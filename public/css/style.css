@@ -60,7 +60,7 @@ nav .navbar-nav .nav-item > a {
 .nav-item {
     padding: 0 10px;
 }
-.nav-link {
+.navbar .nav-link {
     color: white!important;
     transition: all .3s ease;
 }
@@ -280,6 +280,39 @@ section#three .subscribe h4 {
     object-fit: cover;
 }
 
+
+
+/*=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!  CART  =============*/
+#details .tab-content img {
+    height: 20rem;
+    object-fit: cover;
+}
+
+
+/*=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!  PROFILE  =============*/
+#profile .avatar-lg {
+    width: 17rem;
+    height: 17rem;
+}
+#profile .board {
+    font-size: 14pt;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    text-shadow: 1px 1px #666, 3px 3px #000;
+    padding: 20px;
+    color: #bcd0f7;
+    border: 10px solid #eee;
+    background: #1A233A;
+    box-shadow: 0 -1px 0 2px #aaa, 0 -7px 5px -5px #000, 0 -15px 30px -15px #000, 0 3px 4px -2px #000, -60px 30px 70px -70px #000, 70px 30px 70px -70px #000, 0 200px 20px rgba(255, 255, 255, .05), inset 0 0 25px #000, inset 0 0 5px #000;
+}
+#profile .board:focus {
+    outline: none;
+}
+#profile .board u {
+    color: #fd0;
+    text-underline-position: under;
+}
 
 
 /*=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!=============!!!!!!!!!!!!!!!  FOOTER  =============*/

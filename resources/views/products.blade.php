@@ -56,10 +56,12 @@
                                 <h6 class="mb-1"><a href="#" class="text-dark">{{ $product->title }}</a></h6>
                                 <p class="text-muted font-size-13">-------</p>
                                 <h6 class="mt-2 mb-0">
-                                    <span class="text-muted"><del>KSH 240</del> | </span> KSH {{ $product->price }}
+                                    @if($product->discount)
+                                        <span class="text-danger small"><del>KES {{ $product->price }}</del> | </span> KES {{ calcDiscountPrice($product) }}
+                                    @else KSH {{ $product->price }} @endif
                                 </h6>
                                 <div class="product-color">
-                                    <a href="{{ route('products.show', ['id' => $product->id]) }}" class="btn btn-sm btn-outline-danger">View</a>
+                                    <a href="{{ route('products.show', ['id' => $product->id]) }}" class="btn btn-sm btn-outline-danger">View Food</a>
                                 </div>
                             </div>
                         </div>

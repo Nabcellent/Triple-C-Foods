@@ -12,24 +12,16 @@
         </div>
     </x-slot>
 
-    <!-- component -->
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
-    <div x-data="{ cartOpen: false , isOpen: false }" class="bg-white">
+    <div class="bg-white">
         <header>
             <div class="container mx-auto px-6 py-3">
                 <div class="flex items-center justify-between">
                     <div class="hidden w-full text-gray-600 md:flex md:items-center">
                         <button class="mx-2 text-gray-600 border rounded-md p-2 hover:bg-gray-200 focus:outline-none">
-                                <span class="bg-green-200 text-{{ $product->status ? 'green' : 'orange' }}-600 py-1 px-3 rounded-full text-xs">
-                                    {{ $product->status ? 'Active' : 'Inactive' }}
-                                </span>
+                                <span class="bg-red-500 text-white py-1 px-3 rounded-full text-xs">{{ $product->discount }}% off</span>
                         </button>
                     </div>
-                    <div class="w-full text-gray-700 md:text-center text-2xl font-semibold">
-                        Product
-                    </div>
-
+                    <div class="w-full text-gray-700 md:text-center text-2xl font-semibold">Product</div>
                 </div>
             </div>
         </header>
@@ -44,7 +36,10 @@
                         <div class="flex justify-between">
                             <div>
                                 <h3 class="text-gray-700 uppercase text-lg">{{ $product->title }}</h3>
-                                <span class="text-gray-500 mt-3">KES {{ $product->price }}/-</span>
+                                @if($product->discount)
+                                    <del class="text-gray-500 mt-3">KES {{ $product->price }}/-</del>
+                                    <span class="text-gray-500 mt-3">KES {{ calcDiscountPrice($product) }}/-</span>
+                                @else <span class="text-gray-500 mt-3">KES {{ $product->price }}/-</span> @endif
                             </div>
                             <div>
                                 <label class="text-gray-700 text-sm" for="count">Stock</label>
@@ -129,7 +124,7 @@
                     addRemoveLinks: true
                 });
 
-                dropZone.on("addedfile", function (file) {
+                dropZone.on("addedfile", function () {
                     if (dropZone.getAddedFiles().length) $('#img-button').show(300);
                 });
 

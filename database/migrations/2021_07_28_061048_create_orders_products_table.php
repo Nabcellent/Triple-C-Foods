@@ -20,6 +20,7 @@ class CreateOrdersProductsTable extends Migration
             $table->json('details');
             $table->smallInteger('quantity')->unsigned()->default(1);
             $table->float('price')->unsigned();
+            $table->float('discount')->default(0);
             $table->timestamps();
         });
     }

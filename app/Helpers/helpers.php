@@ -2,6 +2,7 @@
 
 use App\Models\Cart;
 use Illuminate\Http\RedirectResponse;
+use JetBrains\PhpStorm\ArrayShape;
 
 function isAdmin():bool {
     return Auth::user()->is_admin || isRed();
@@ -72,4 +73,24 @@ function cartTotal(): int|string {
 
 function cartItems(): array {
     return Session::get('cart');
+}
+
+
+function calcDiscountPrice($product): int {
+    if($product->discount > 0) {
+        $discountPrice = $product->price - ($product->price * $product->discount / 100);
+    }
+
+    return $discountPrice ?? 0;
+}
+
+function orderStatuses(): array {
+    return [
+        'pending',
+        'in process',
+        'hold',
+        'completed',
+        'cancelled',
+        'delivered',
+    ];
 }

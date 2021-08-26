@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="overflow-x-auto">
                         <div class="min-w-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
-                            <div class="w-full lg:w-5/6">
+                            <div class="w-full lg:w-11/12">
                                 <div class="bg-white shadow-md rounded my-6">
                                     <table class="min-w-max w-full table-auto">
                                         <thead>
@@ -20,7 +20,8 @@
                                             <th class="py-3 px-6 text-left">Order No.</th>
                                             <th class="py-3 px-6 text-left">User</th>
                                             <th class="py-3 px-6 text-left">Items Ordered</th>
-                                            <th class="py-3 px-6 text-center">Order Date</th>
+                                            <th class="py-3 px-6 text-left">Total</th>
+                                            <th class="py-3 px-6 text-center">Order Time</th>
                                             <th class="py-3 px-6 text-center">Status</th>
                                             <th class="py-3 px-6 text-center">Actions</th>
                                         </tr>
@@ -31,12 +32,11 @@
                                         @forelse($orders as $order)
                                             <?php
                                             $images = glob('images/faces/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-
                                             $randomImage = $images[array_rand($images)];
                                             ?>
                                             <tr class="border-b border-gray-200 hover:bg-gray-100">
                                                 <th class="py-3 px-6 text-left whitespace-nowrap">{{ $i }}</th>
-                                                <th class="py-3 px-6 text-left whitespace-nowrap">{{ $order->order_no }}</th>
+                                                <th class="py-3 px-6 text-left whitespace-nowrap">#{{ $order->order_no }}</th>
                                                 <td class="py-3 px-6 text-left">
                                                     <div class="flex items-center">
                                                         <div class="mr-2">
@@ -46,13 +46,14 @@
                                                     </div>
                                                 </td>
                                                 <td class="py-3 px-6 text-center">{{ $order->order_products_count }}</td>
+                                                <td class="py-3 px-6 text-center text-green-700 font-bold">{{ $order->total }}/=</td>
                                                 <td class="py-3 px-6 text-center">{{ \Carbon\Carbon::createFromTimestamp(strtotime($order->created_at))->diffForHumans() }}</td>
                                                 <td class="py-3 px-6 text-center">
                                                     <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">{{ ucfirst($order->status) }}</span>
                                                 </td>
                                                 <td class="py-3 px-6 text-center">
                                                     <div class="flex item-center justify-center">
-                                                        <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                                        <a href="{{ route('admin.orders.show', ['id' => $order->id]) }}" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                                  stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -60,7 +61,7 @@
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                                       d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                                             </svg>
-                                                        </div>
+                                                        </a>
                                                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                                  stroke="currentColor">

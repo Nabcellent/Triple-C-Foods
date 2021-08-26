@@ -45,7 +45,6 @@ input:focus {
 }
 
 .dropzone {
-    min-height: 230px;
     border: 2px dashed #ced4da;
     background: #fff;
     border-radius: 6px

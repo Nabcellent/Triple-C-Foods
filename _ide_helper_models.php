@@ -20,6 +20,7 @@ namespace App\Models{
  * @property int $product_id
  * @property mixed $details
  * @property int $quantity
+ * @property float $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Product $product
@@ -30,6 +31,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Cart whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cart whereDetails($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cart whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cart wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cart whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cart whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cart whereUpdatedAt($value)
@@ -45,7 +47,11 @@ namespace App\Models{
  * @mixin IdeHelperOrder
  * @property int $id
  * @property int $user_id
+ * @property string $order_no
  * @property int $phone
+ * @property string|null $address
+ * @property string $pay_method
+ * @property int $discount
  * @property float $total
  * @property string $status
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -56,8 +62,12 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereDiscount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereOrderNo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order wherePayMethod($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereTotal($value)
@@ -77,6 +87,7 @@ namespace App\Models{
  * @property int $product_id
  * @property mixed $details
  * @property int $quantity
+ * @property float $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Order $order
@@ -88,6 +99,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|OrdersProduct whereDetails($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrdersProduct whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrdersProduct whereOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrdersProduct wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrdersProduct whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrdersProduct whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrdersProduct whereUpdatedAt($value)
@@ -101,33 +113,61 @@ namespace App\Models{
  *
  * @mixin IdeHelperProduct
  * @property int $id
- * @property int $user_id
  * @property string $title
  * @property float $price
  * @property string $image
  * @property int $stock
  * @property string $description
+ * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property float $discount
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Cart[] $cart
  * @property-read int|null $cart_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OrdersProduct[] $orderProducts
  * @property-read int|null $order_products_count
- * @property-read \App\Models\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductsImage[] $productImages
+ * @property-read int|null $product_images_count
  * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product query()
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereDiscount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereStock($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereUserId($value)
  */
 	class IdeHelperProduct extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\ProductsImage
+ *
+ * @property int $id
+ * @property int $product_id
+ * @property string $image
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Product $product
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductsImage newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductsImage newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductsImage query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductsImage whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductsImage whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductsImage whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductsImage whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductsImage whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductsImage whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+	class IdeHelperProductsImage extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -138,6 +178,8 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $email
+ * @property int|null $phone
+ * @property string|null $address
  * @property string|null $image
  * @property int $is_admin
  * @property \Illuminate\Support\Carbon|null $email_verified_at
@@ -145,8 +187,12 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Cart[] $cart
+ * @property-read int|null $cart_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read int|null $orders_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
@@ -157,6 +203,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
@@ -165,6 +212,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereIsAdmin($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */

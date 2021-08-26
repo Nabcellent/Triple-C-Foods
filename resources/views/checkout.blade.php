@@ -55,13 +55,13 @@
                                                 <div class="col-12 col-md-6">
                                                     <div class="mb-3">
                                                         <label for="billing-name">Name</label>
-                                                        <input type="text" class="form-control" name="name" id="billing-name" placeholder="Enter name">
+                                                        <input type="text" class="form-control" name="name" id="billing-name" value="{{ old('name') }}" placeholder="Enter name">
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <div class="mb-3">
                                                         <label for="billing-phone">Phone *</label>
-                                                        <input type="number" class="form-control" name="phone" id="billing-phone" placeholder="Enter Phone no." required>
+                                                        <input type="number" class="form-control" name="phone" id="billing-phone" value="{{ old('phone') }}" placeholder="Enter Phone no." required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -70,7 +70,7 @@
                                                     <div class="mb-4">
                                                         <label for="billing-address">Address</label>
                                                         <textarea class="form-control" id="billing-address" rows="2" name="address"
-                                                                  placeholder="Enter full address..."></textarea>
+                                                                  placeholder="Enter full address...">{{ old('address') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
