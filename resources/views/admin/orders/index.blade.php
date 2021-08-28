@@ -90,7 +90,9 @@
 
                                             <?php $i++; ?>
                                         @empty
-                                            <tr><td colspan="7"><div class="text-center my-2">NO ORDERS</div></td></tr>
+                                            <tr>
+                                                <td colspan="8"><h4 class="text-center pt-2">No orders have been placed</h4></td>
+                                            </tr>
                                         @endforelse
 
                                         </tbody>

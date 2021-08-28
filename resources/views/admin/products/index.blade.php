@@ -29,7 +29,7 @@
                                         <tbody class="text-gray-600 text-sm font-light">
 
                                         <?php $i = $products->firstItem(); ?>
-                                        @foreach($products as $product)
+                                        @forelse($products as $product)
                                             <?php
                                                 if(isset($product->image)) {
                                                     $image = asset('images/kuku/' . $product->image);
@@ -80,7 +80,11 @@
                                             </tr>
 
                                             <?php $i++; ?>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="6"><h4 class="text-center pt-2">No products available</h4></td>
+                                            </tr>
+                                        @endforelse
 
                                         </tbody>
                                     </table>
