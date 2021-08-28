@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index(): Factory|View|Application {
         $data = [
-            'products' => Product::where('stock', '>', 0)->paginate(10),
+            'products' => Product::where('id', 90128)->where('stock', '>', 0)->paginate(10),
         ];
 
         return view('products', $data);
