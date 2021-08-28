@@ -23,7 +23,7 @@ class OrderFactory extends Factory
      */
     public function definition(): array {
         $userId = User::inRandomOrder()->value('id');
-        $orderNo = '#NFC0'.str_pad($this->faker->unique()->numberBetween(1, 1000), 7, "0", STR_PAD_LEFT);
+        $orderNo = '#NFC0'.str_pad($this->faker->unique()->numberBetween(1, 1000), 3, "0", STR_PAD_LEFT);
         $phone = $this->faker->randomElement([
             11 . $this->faker->unique()->numerify('#######'),
             7 . $this->faker->unique()->numerify('########')

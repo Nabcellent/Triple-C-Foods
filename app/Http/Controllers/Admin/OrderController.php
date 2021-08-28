@@ -24,9 +24,7 @@ class OrderController extends Controller
      * @return Response
      */
     public function index(): Response {
-        $data = [
-            'orders' =>Order::with('user')->withCount('orderProducts')->latest()->paginate(10)
-        ];
+        $data['orders'] = Order::with('user')->withCount('orderProducts')->latest()->paginate(10);
 
         return response()->view('admin.orders.index', $data);
     }
