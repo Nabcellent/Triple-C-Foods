@@ -4,20 +4,20 @@
 
     <!-- Masthead-->
     <div class="masthead register">
-        <div class="position-absolute" style="top: 1rem; right: 1rem">
+        {{--<div class="position-absolute" style="top: 1rem; right: 1rem">
             @if($isAdmin)
                 <a href="{{ route('register') }}" class="link-secondary">Client</a>
             @else
                 <a href="{{ route('register', ['user' => 'admin']) }}" class="link-secondary">Admin</a>
             @endif
-        </div>
+        </div>--}}
 
         <div class="masthead-content text-white">
             <div class="container-fluid px-4 px-lg-0">
-                <h1 class="fst-italic lh-1 mb-4">{{ $isAdmin ? 'Admin' : 'Customer' }} Sign Up</h1>
+                <h1 class="fst-italic lh-1 mb-4">{{--{{ $isAdmin ? 'Admin' : 'Customer' }} --}}Sign Up</h1>
                 <p class="mb-5">
-                    Hellooo! Sign up below as
-                    {{ $isAdmin ? 'an admin and sell the best food you customers will ever have.' : ' a customer and order the best meal you never had.' }}
+                    Hellooo! Sign up below and order the best meal you never had.
+                    {{--{{ $isAdmin ? 'an admin and sell the best food you customers will ever have.' : ' a customer and order the best meal you never had.' }}--}}
                 </p>
                 @if($errors->any())
                     <div class="alert alert-danger alert-dismissible fade show py-1" role="alert">
