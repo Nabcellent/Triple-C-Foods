@@ -70,6 +70,8 @@ Route::prefix('/admin')->middleware(['auth'])->name('admin.')->group(function() 
 
     Route::prefix('/users')->name('users.')->group(function() {
         Route::get('/', [AdminUserController::class, 'index'])->name('index');
+        Route::get('/create', [AdminUserController::class, 'create'])->name('create');
+        Route::post('/store', [AdminUserController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->name('edit');
         Route::put('/update-profile/{id}', [AdminUserController::class, 'updateProfile'])->name('update.profile');
         Route::put('/update-password/{id}', [AdminUserController::class, 'updatePassword'])->name('update.password');

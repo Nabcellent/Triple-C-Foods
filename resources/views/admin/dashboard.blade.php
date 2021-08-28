@@ -11,8 +11,8 @@
                 <div class="bg-green-50 shadow-lg p-4 rounded-2xl">
                     <div class="flex flex-wrap">
                         <div class="flex-shrink-0 w-full flex-1 px-2">
-                            <h5 class="text-gray-500">Today's money</h5>
-                            <h4>+{{ number_format($todaysMoney) }}/=</h4>
+                            <h5 class="text-gray-500">Month's money</h5>
+                            <h4>+{{ number_format($monthsMoney) }}/=</h4>
                         </div>
                         <div class="flex-shrink-0 w-full flex-1 px-2 items-center">
                             <div class="p-2 text-red-900 text-right">
@@ -26,8 +26,8 @@
                 <div class="bg-green-50 shadow-lg p-4 rounded-2xl">
                     <div class="flex flex-wrap">
                         <div class="flex-shrink-0 w-full flex-1 px-2">
-                            <h5 class="text-gray-500">Today's orders</h5>
-                            <h4>+{{ $todaysOrders }}</h4>
+                            <h5 class="text-gray-500">Month's orders</h5>
+                            <h4>+{{ $monthsOrders }}</h4>
                         </div>
                         <div class="flex-shrink-0 w-full flex-1 px-2 items-center">
                             <div class="p-2 text-red-900 text-right">
@@ -41,8 +41,8 @@
                 <div class="bg-green-50 shadow-lg p-4 rounded-2xl">
                     <div class="flex flex-wrap">
                         <div class="flex-shrink-0 w-full flex-1 px-2">
-                            <h5 class="text-gray-500">Today's users</h5>
-                            <h4>+{{ $todaysUsers }}</h4>
+                            <h5 class="text-gray-500">Month's users</h5>
+                            <h4>+{{ $monthsUsers }}</h4>
                         </div>
                         <div class="flex-shrink-0 w-full flex-1 px-2 items-center">
                             <div class="p-2 text-red-900 text-right">
@@ -56,7 +56,7 @@
                 <div class="bg-green-50 shadow-lg p-4 rounded-2xl">
                     <div class="flex flex-wrap">
                         <div class="flex-shrink-0 w-full flex-1 px-2">
-                            <h5 class="text-gray-500">Today's stock</h5>
+                            <h5 class="text-gray-500">Total stock</h5>
                             <h4>{{ $totalStock }}</h4>
                         </div>
                         <div class="flex-shrink-0 w-full flex-1 px-2 items-center">
@@ -262,10 +262,12 @@
                     .beginAtZero()
                     .responsive()
                     .legend({ position: 'bottom' })
-                    .title('This is a sample chart using chartisan!')
-                    .colors(['#ECC94B', `rgb(36,103,225)`, '#900'])
-                //.datasets([{ type: 'line', fill: false }, 'bar'])
+                    .title('Orders per day in the past one week.')
+                    .colors(['rgb(30, 100, 225)'])
+                    .datasets([{ type: 'line', fill: false }, 'bar'])
+                    .padding(20)
             }),
+
             pieChart: new Chartisan({
                 el: '#piechart',
                 url: "@chart('pie_chart')",
@@ -278,14 +280,47 @@
                 },
                 hooks: new ChartisanHooks()
                     .responsive()
-                    .title('This is a sample chart using chartisan!')
-                    .datasets('doughnut')
-                    .pieColors()
+                    .title('Top 3 ordered products')
+                    .datasets('pie')
+                    .pieColors([`rgba(153, 0, 0, 1)`, `rgba(153, 0, 0, .8)`, 'rgba(153, 0, 0, .6)'])
                     .legend({ position: 'bottom' })
 
             })
         }
 
-        setInterval(() => {chart.barChart.update({ background: true })}, 60000)
+        const colorCodeSet = 'ABCDEF0123456789';
+
+        function randomColor(noOfDatasets) {
+            let colors = [];
+
+            for(let i = 0; i < noOfDatasets; i++) {
+                colors.push(`#${str_shuffle(colorCodeSet).substr(0, 6)}`);
+            }
+
+            return colors;
+        }
+
+        function str_shuffle(str) {
+            if (arguments.length === 0) throw new Error('Wrong parameter count for str_shuffle()');
+            if (str === null) return '';
+
+            str += '';
+
+            let newStr = '', rand = void 0, i = str.length;
+
+            while (i) {
+                rand = Math.floor(Math.random() * i);
+                newStr += str.charAt(rand);
+                str = str.substring(0, rand) + str.substr(rand + 1);
+                i--;
+            }
+
+            return newStr;
+        }
+
+        setInterval(() => {
+            chart.barChart.update({ background: true })
+            chart.pieChart.update({ background: true })
+        }, 600000)
     </script>
 </x-app-layout>

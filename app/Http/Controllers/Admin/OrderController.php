@@ -74,7 +74,7 @@ class OrderController extends Controller
 
         try {
             DB::transaction(function() use ($orderData) {
-                $orderData['order_no'] = 'NFC0' . DB::select("SHOW TABLE STATUS LIKE 'orders'")[0]->Auto_increment;
+                $orderData['order_no'] = '#NFC0' . DB::select("SHOW TABLE STATUS LIKE 'orders'")[0]->Auto_increment;
                 $order = Auth::user()->orders()->create($orderData);
 
                 foreach(cartItems() as $id => $item) {

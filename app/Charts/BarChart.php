@@ -4,6 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Charts;
 
+use App\Models\Order;
+use Carbon\Carbon;
+use Carbon\Traits\Creator;
 use Chartisan\PHP\Chartisan;
 use ConsoleTVs\Charts\BaseChart;
 use Illuminate\Http\Request;
@@ -21,12 +24,30 @@ class BarChart extends BaseChart
      * It must always return an instance of Chartisan
      * and never a string or an array.
      */
-    public function handler(Request $request): Chartisan
-    {
+    public function handler(Request $request): Chartisan {
+        $orders = Order::whereBetween('created_at', [Carbon::now()->subWeek(), Carbon::now()])
+            ->get(['created_at'])->groupBy(function($item) {
+                return $item->created_at->toDateString();
+            });
+
+        $date = new Carbon;
+        for($i = 0; $i < 7; $i++) {
+            $dateString = $date->toDateString();
+
+            isset($orders[$dateString]) ? $orders[$dateString] = $orders[$dateString]->count() : $orders[$dateString] = 0;
+
+            $date->subDay();
+        }
+
+        $orders = $orders->sortKeys();
+
+        foreach($orders as $key => $order) {
+            $orders[Carbon::parse($key)->shortDayName] = $order;
+            $orders->forget($key);
+        }
+
         return Chartisan::build()
-            ->labels(['First', 'Second', 'Third'])
-            ->dataset('Sample', [1, 2, 3])
-            ->dataset('Sample 3', [4, 2, 3])
-            ->dataset('Sample 2', [3, 2, 1]);
+            ->labels(array_keys($orders->toArray()))
+            ->dataset('Orders', array_values($orders->toArray()));
     }
 }

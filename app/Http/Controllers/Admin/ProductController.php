@@ -112,6 +112,8 @@ class ProductController extends Controller
                     unlink(public_path('images/kuku/' . $product->image));
             }
 
+            $data['discount'] = $request->input('discount') ?? 0;
+
             DB::transaction(function() use ($product, $data) {
                 $product->update($data);
             });

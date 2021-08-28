@@ -44,7 +44,7 @@
                                             ?>
                                             <tr class="border-b border-gray-200 hover:bg-gray-100">
                                                 <th class="py-3 px-6 text-left whitespace-nowrap">{{ $i }}</th>
-                                                <th class="py-3 px-6 text-left whitespace-nowrap">#{{ $order->order_no }}</th>
+                                                <th class="py-3 px-6 text-left whitespace-nowrap">{{ $order->order_no }}</th>
                                                 <td class="py-3 px-6 text-left">
                                                     <div class="flex items-center">
                                                         <div class="mr-2">

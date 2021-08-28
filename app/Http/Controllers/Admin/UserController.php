@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Throwable;
 
 class UserController extends Controller
 {
@@ -29,20 +32,30 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return response()->view('admin.users.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Response
+     * @param StoreUserRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(StoreUserRequest $request): RedirectResponse {
+        $data = $request->all();
+        $data['password'] = Hash::make('foodcellent');
+        $data['is_admin'] = true;
+
+        try {
+            DB::transaction(function() use ($data) {
+                User::create($data);
+            });
+
+            return createOk('user', 'admin.users.index');
+        } catch(Throwable $e) {
+            return toastError($e->getMessage(), 'Unable to create admin.');
+        }
     }
 
     /**

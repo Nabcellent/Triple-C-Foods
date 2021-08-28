@@ -11,8 +11,8 @@
                         <div class="card-img-overlay d-flex align-items-end">
                             <div class="shadow-lg p-3">
                                 <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a.</p>
-                                <p class="card-text">Last updated 3 mins ago</p>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, consectetur culpa dolore ea eligendi.</p>
+                                <p class="card-text text-secondary">Last updated 3 days ago</p>
                             </div>
                         </div>
                     </div>
@@ -23,9 +23,8 @@
                         <div class="card-img-overlay">
                             <div class="shadow p-3">
                                 <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This
-                                    content is a little bit longer.</p>
-                                <p class="card-text">Last updated 3 mins ago</p>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque, nihil, repellendus?</p>
+                                <p class="card-text text-secondary">Last updated 1 hour ago</p>
                             </div>
                         </div>
                     </div>
@@ -35,15 +34,14 @@
             <div class="row">
                 <div class="col">
                     <div class="px-5 mb-4 bg-light rounded-3">
-                        <div class="container-fluid py-5">
-                            <h1 class="display-5 fw-bold">Our menu for you😁</h1>
-                            <p class="col-md-8">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad cumque ea enim exercitationem fugiat!</p>
+                        <div class="container-fluid py-3">
+                            <h1 class="fw-bold text-center">Explore our various dishes😁</h1>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row justify-content-center">
                 @forelse($products as $product)
                     <div class="col-3 pb-3 chicken">
                         <div class="card product-box">
