@@ -80,7 +80,7 @@
 
                                         </tbody>
                                     </table>
-                                    <div class="paginator">
+                                    <div class="paginator p-2">
 	                                    {{ $users->links() }}
                                     </div>
                                 </div>

@@ -36,12 +36,12 @@ class AuthenticatedSessionController extends Controller {
 
         $request->session()->regenerate();
 
-        $this->authenticated($request);
+        $this->authenticated();
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
-    protected function authenticated(Request $request) {
+    protected function authenticated() {
         //  Update user cart with user id
 
         $cartItems = Cart::where('user_id', Auth::id());

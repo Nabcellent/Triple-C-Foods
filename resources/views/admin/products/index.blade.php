@@ -84,7 +84,7 @@
 
                                         </tbody>
                                     </table>
-                                    <div class="paginator">
+                                    <div class="paginator p-2">
                                         {{ $products->links() }}
                                     </div>
                                 </div>
