@@ -19,15 +19,16 @@
                            data-target="#profile_modal">Kitchen
                         </a>
                     </li>
-                    <li class="nav-item position-relative dropdown">
-                        <a href="#" class="nav-link dropdown-toggle {{ !Route::is('cart.*') ?: 'active' }}" data-bs-toggle="dropdown" title="Cart">
-                            Cart
-                            <i class="fab fa-opencart">
-                                <span class="position-absolute top-0 font-size-10">{{ cartCount() }}</span>
-                            </i>
-                            <span class="font-size-10">{{ cartTotal() }}</span>
-                        </a>
-                        @if(session('cart'))
+                    @if(session('cart'))
+                        <li class="nav-item position-relative dropdown">
+                            <a href="#" class="nav-link dropdown-toggle {{ !Route::is('cart.*') ?: 'active' }}" data-bs-toggle="dropdown"
+                               title="Cart">
+                                Cart
+                                <i class="fab fa-opencart">
+                                    <span class="position-absolute top-0 font-size-10">{{ cartCount() }}</span>
+                                </i>
+                                <span class="font-size-10">{{ cartTotal() }}</span>
+                            </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><h6 class="dropdown-header text-center font-size-12">Items in cart</h6></li>
                                 @foreach(session('cart') as $id => $details)
@@ -40,7 +41,8 @@
                                                 </div>
                                                 <div class="col-10 p-0">
                                                     <p>{{ $details['title'] }}</p>
-                                                    <span class="price text-danger">KSH {{ discountedPrice($details['price'],$details['discount']) }}</span>
+                                                    <span
+                                                        class="price text-danger">KSH {{ discountedPrice($details['price'],$details['discount']) }}</span>
                                                     <span class="count"> Qty:{{ $details['quantity'] }}</span>
                                                 </div>
                                             </div>
@@ -50,8 +52,8 @@
                                 <h6 class="dropdown-divider"></h6>
                                 <li><a href="{{ route('cart.index') }}" class="dropdown-item text-center">View All</a></li>
                             </ul>
-                        @endif
-                    </li>
+                        </li>
+                    @endif
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->name }} <i class="fas fa-user"></i>
