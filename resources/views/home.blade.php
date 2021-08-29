@@ -16,7 +16,7 @@
                                 <h4 class="pb-3"><b>GOOD FOOD === GOOD MOOD</b></h4>
                                 <div class="border-top border-white mb-3 w-75 ml-auto"></div>
                                 <blockquote>
-                                    <h4 class="mb-3">Welcome to Chicken Chef Cuisine.😁 </h4>
+                                    <h4 class="mb-3">Welcome to <strong>Chicken Chef Cuisine</strong>.😁 </h4>
                                     <h6>We bring professional chefs to your home to prepare delicious, customized meals at a fraction of
                                         the cost.</h6>
                                 </blockquote>

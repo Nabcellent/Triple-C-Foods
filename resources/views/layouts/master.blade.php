@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'FoodCellent') }} - @yield('title')</title>
+    <title>{{ config('app.name', 'Triple-C') }} - @yield('title')</title>
     <link rel="icon" type="image/jpg" sizes="256x256" href="{{ asset('logo.ico') }}">
 
     @include('partials.links')

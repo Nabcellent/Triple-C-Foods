@@ -5,7 +5,7 @@
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container-fluid">
             <a href="{{ route('home') }}" class="navbar-brand d-flex">
-                <img src="{{ asset('images/logo.png') }}" alt="logo" title="home logo">FOODCELLENT
+                <img src="{{ asset('images/logo.png') }}" alt="logo" title="home logo">{{ env('APP_NAME', 'Triple-C') }}
             </a>
             <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbar_responsive">
                 <span class="navbar-toggler-icon"></span>

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Triple-C') }}</title>
     <link rel="icon" type="image/jpg" sizes="256x256" href="{{ asset('logo.ico') }}">
 
     @include('admin.partials.links')
