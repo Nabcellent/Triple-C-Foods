@@ -158,9 +158,7 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <tr>
-                                                <td colspan="8"><h4 class="text-center pt-2">No new orders</h4></td>
-                                            </tr>
+                                            <tr><td colspan="8"><h4 class="text-center pt-2">No new orders</h4></td></tr>
                                         @endforelse
 
                                         </tbody>
@@ -228,12 +226,8 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <tr>
-                                            <td colspan="4"><h4 class="text-center pt-2">No new users</h4></td>
-                                        </tr>
+                                        <tr><td colspan="4"><h4 class="text-center pt-2">No new users</h4></td></tr>
                                     @endforelse
-
-                                    <!-- More people... -->
                                     </tbody>
                                 </table>
                                 @if(count($orders))
