@@ -158,7 +158,7 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <tr><td colspan="8"><h4 class="text-center pt-2">No new orders</h4></td></tr>
+                                            <tr><td colspan="8"><h4 class="text-center py-3">No new orders</h4></td></tr>
                                         @endforelse
 
                                         </tbody>
@@ -226,11 +226,11 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <tr><td colspan="4"><h4 class="text-center pt-2">No new users</h4></td></tr>
+                                        <tr><td colspan="4"><h4 class="text-center py-3">No new users</h4></td></tr>
                                     @endforelse
                                     </tbody>
                                 </table>
-                                @if(count($orders))
+                                @if(count($newUsers))
                                     <div class="text-right py-1 px-3">
                                         <small>
                                             <a class="text-pink-900" href="{{ route('admin.users.index') }}">
