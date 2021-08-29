@@ -13,21 +13,21 @@
                     <div class="container">
                         <div class="row justify-content-end">
                             <div class="d-none d-md-block col-md-11 col-lg-9 col-xl-8 bg-dark text-right">
-                                <h2 class="pb-3"><b>GOOD FOOD === GOOD MOOD</b></h2>
+                                <h4 class="pb-3"><b>GOOD FOOD === GOOD MOOD</b></h4>
                                 <div class="border-top border-white mb-3 w-75 ml-auto"></div>
                                 <blockquote>
-                                    <p class="lead">We bring professional chefs to your home to prepare delicious, customized meals at a fraction of
-                                        the cost.</p>
-                                    <footer>~ Lil Nabz</footer>
+                                    <h4 class="mb-3">Welcome to Chicken Chef Cuisine.😁 </h4>
+                                    <h6>We bring professional chefs to your home to prepare delicious, customized meals at a fraction of
+                                        the cost.</h6>
                                 </blockquote>
-                                <a href="#social-media-sticky" class="btn btn-primary btn-md">Explore menu...</a>
+                                <a href="#social-media-sticky" class="btn btn-primary mt-3">Explore our delightful menu...</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item" data-bs-interval="1000"><img class="d-block w-100" src="{{ asset('images/carousel/2.jpg') }}" alt=""></div>
-            <div class="carousel-item" data-bs-interval="5000">
+            <div class="carousel-item" data-bs-interval="2000"><img class="d-block w-100" src="{{ asset('images/carousel/2.jpg') }}" alt=""></div>
+            <div class="carousel-item" data-bs-interval="7000">
                 <img class="d-block w-100" src="{{ asset('images/carousel/3.jpg') }}" alt="">
                 <div class="carousel-caption">
                     <div class="container">
@@ -36,10 +36,9 @@
                                 <h3>Discover a unique <br> experience.</h3>
                                 <div class="border-top border-dark my-1 w-75"></div>
                                 <blockquote>
-                                    <p class="lead">You don't need a silver fork to eat good food.</p>
+                                    <p class="lead my-2">You don't need a silver fork to eat good food.</p>
                                     <footer><i>~ Lil Nabz</i></footer>
                                 </blockquote>
-                                <a href="#" class="btn btn-light btn-md">Learn More...</a>
                             </div>
                         </div>
                     </div>
