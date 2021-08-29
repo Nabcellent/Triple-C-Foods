@@ -19,10 +19,10 @@ use Illuminate\Support\Facades\DB;
 class IndexController extends Controller {
     public function index(): Factory|View|Application {
         $data = [
-            'newUsers' => User::where('id', '<>', 1)->latest()->take(5)->get(),
+            'newUsers' => User::where('id', '!=', 1)->latest()->take(5)->get(),
             'newOrders' => Order::with('user')->latest()->take(5)->get(),
             'totalStock' => Product::sum('stock'),
-            'monthsUsers' => User::where('id', '<>', 1)
+            'monthsUsers' => User::where('id', '!=', 1)
                 ->whereBetween('created_at', [now()->startOfMonth(), now()])->count(),
             'monthsOrders' => Order::whereBetween('created_at', [now()->startOfMonth(), now()])->count(),
             'monthsMoney' => Order::whereIn('status', ['completed', 'delivered'])
