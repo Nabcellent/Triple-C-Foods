@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -22,7 +23,7 @@ class UserController extends Controller
      * @return Response
      */
     public function index(): Response {
-        $data['users'] = User::where('is_admin', '!=', 1)->latest()->paginate(10);
+        $data['users'] = User::where('id', '!=', Auth::id())->latest()->paginate(10);
 
         return response()->view('admin.users.index', $data);
     }

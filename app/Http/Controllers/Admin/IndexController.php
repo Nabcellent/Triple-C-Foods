@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrdersProduct;
 use App\Models\Product;
 use App\Models\User;
+use Auth;
 use Carbon\Carbon;
 use Carbon\Traits\Creator;
 use Illuminate\Contracts\Foundation\Application;
@@ -19,10 +20,10 @@ use Illuminate\Support\Facades\DB;
 class IndexController extends Controller {
     public function index(): Factory|View|Application {
         $data = [
-            'newUsers' => User::where('id', '!=', 1)->latest()->take(5)->get(),
+            'newUsers' => User::where('id', '!=', Auth::id())->latest()->take(5)->get(),
             'newOrders' => Order::with('user')->latest()->take(5)->get(),
             'totalStock' => Product::sum('stock'),
-            'monthsUsers' => User::where('id', '!=', 1)
+            'monthsUsers' => User::where('id', '!=', Auth::id())
                 ->whereBetween('created_at', [now()->startOfMonth(), now()])->count(),
             'monthsOrders' => Order::whereBetween('created_at', [now()->startOfMonth(), now()])->count(),
             'monthsMoney' => Order::whereIn('status', ['completed', 'delivered'])
