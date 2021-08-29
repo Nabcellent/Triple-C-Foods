@@ -144,7 +144,8 @@
                                                 </td>
                                                 <td class="py-3 px-6 text-center">
                                                     <div class="flex item-center justify-center">
-                                                        <a href="{{ route('admin.orders.show', ['id' => $order->id]) }}" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                                        <a href="{{ route('admin.orders.show', ['id' => $order->id]) }}"
+                                                           class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                                  stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -157,18 +158,22 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <tr><td colspan="5"><div class="text-center my-2">NO ORDERS</div></td></tr>
+                                            <tr>
+                                                <td colspan="8"><h4 class="text-center pt-2">No new orders</h4></td>
+                                            </tr>
                                         @endforelse
 
                                         </tbody>
                                     </table>
-                                    <div class="text-right py-1 px-3">
-                                        <small>
-                                            <a class="text-pink-900" href="{{ route('admin.orders.index') }}">
-                                                View All <i class="fas fa-arrow-right"></i>
-                                            </a>
-                                        </small>
-                                    </div>
+                                    @if(count($orders))
+                                        <div class="text-right py-1 px-3">
+                                            <small>
+                                                <a class="text-pink-900" href="{{ route('admin.orders.index') }}">
+                                                    View All <i class="fas fa-arrow-right"></i>
+                                                </a>
+                                            </small>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -193,7 +198,7 @@
                                     </thead>
                                     <tbody class="text-gray-600 text-sm font-light">
 
-                                    @foreach($newUsers as $user)
+                                    @forelse($newUsers as $user)
                                         <?php
                                         $images = glob('images/faces/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
 
@@ -222,18 +227,24 @@
                                                 <a href="#" class="text-indigo-600 hover:text-indigo-900">View</a>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="4"><h4 class="text-center pt-2">No new users</h4></td>
+                                        </tr>
+                                    @endforelse
 
                                     <!-- More people... -->
                                     </tbody>
                                 </table>
-                                <div class="text-right py-1 px-3">
-                                    <small>
-                                        <a class="text-pink-900" href="{{ route('admin.users.index') }}">
-                                            View All <i class="fas fa-arrow-right"></i>
-                                        </a>
-                                    </small>
-                                </div>
+                                @if(count($orders))
+                                    <div class="text-right py-1 px-3">
+                                        <small>
+                                            <a class="text-pink-900" href="{{ route('admin.users.index') }}">
+                                                View All <i class="fas fa-arrow-right"></i>
+                                            </a>
+                                        </small>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -261,10 +272,10 @@
                 hooks: new ChartisanHooks()
                     .beginAtZero()
                     .responsive()
-                    .legend({ position: 'bottom' })
+                    .legend({position: 'bottom'})
                     .title('Orders per day in the past one week.')
                     .colors(['rgb(30, 100, 225)'])
-                    .datasets([{ type: 'line', fill: false }, 'bar'])
+                    .datasets([{type: 'line', fill: false}, 'bar'])
                     .padding(20)
             }),
 
@@ -283,7 +294,7 @@
                     .title('Top 3 ordered products')
                     .datasets('pie')
                     .pieColors([`rgba(153, 0, 0, 1)`, `rgba(153, 0, 0, .8)`, 'rgba(153, 0, 0, .6)'])
-                    .legend({ position: 'bottom' })
+                    .legend({position: 'bottom'})
 
             })
         }
@@ -293,7 +304,7 @@
         function randomColor(noOfDatasets) {
             let colors = [];
 
-            for(let i = 0; i < noOfDatasets; i++) {
+            for (let i = 0; i < noOfDatasets; i++) {
                 colors.push(`#${str_shuffle(colorCodeSet).substr(0, 6)}`);
             }
 
@@ -319,8 +330,8 @@
         }
 
         setInterval(() => {
-            chart.barChart.update({ background: true })
-            chart.pieChart.update({ background: true })
+            chart.barChart.update({background: true})
+            chart.pieChart.update({background: true})
         }, 600000)
     </script>
 </x-app-layout>
