@@ -12,7 +12,7 @@ function isRed():bool {
 }
 
 function createOk($model = null, $routeName = null, $msg = 'Successfully created!'): RedirectResponse {
-    $msg = $model ? $model . ' ' . $msg : $msg;
+    $msg = $model ? ucfirst($model) . ' ' . $msg : $msg;
 
     return goWithSuccess($routeName, __($msg));
 }

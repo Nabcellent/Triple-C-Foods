@@ -17,8 +17,9 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('title', 50);
             $table->float('price')->unsigned();
-            $table->string('image', 50)->unique();
             $table->mediumInteger('stock')->unsigned()->default(1);
+            $table->tinyInteger('discount')->default(0)->unsigned();
+            $table->string('image', 50)->unique();
             $table->string('description');
             $table->boolean('status')->default(true);
             $table->timestamps();

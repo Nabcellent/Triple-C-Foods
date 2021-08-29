@@ -24,9 +24,7 @@
                             <a href="#" class="nav-link dropdown-toggle {{ !Route::is('cart.*') ?: 'active' }}" data-bs-toggle="dropdown"
                                title="Cart">
                                 Cart
-                                <i class="fab fa-opencart">
-                                    <span class="position-absolute top-0 font-size-10">{{ cartCount() }}</span>
-                                </i>
+                                <i class="fab fa-opencart"><span class="position-absolute top-0 font-size-10">{{ cartCount() }}</span></i>
                                 <span class="font-size-10">{{ cartTotal() }}</span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

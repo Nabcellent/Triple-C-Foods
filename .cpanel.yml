@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/nosterla/public_html/triple-c/
+    - /bin/cp -r * $DEPLOYPATH

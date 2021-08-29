@@ -18,7 +18,7 @@
                 <div class="flex items-center justify-between">
                     <div class="hidden w-full text-gray-600 md:flex md:items-center">
                         <button class="mx-2 text-gray-600 border rounded-md p-2 hover:bg-gray-200 focus:outline-none">
-                                <span class="bg-red-500 text-white py-1 px-3 rounded-full text-xs">{{ $product->discount }}% off</span>
+                            <span class="bg-red-500 text-white py-1 px-3 rounded-full text-xs">{{ $product->discount }}% off</span>
                         </button>
                     </div>
                     <div class="w-full text-gray-700 md:text-center text-2xl font-semibold">Product</div>
@@ -75,26 +75,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-16">
-                    <h3 class="text-gray-600 text-2xl font-medium">Other Products</h3>
-                    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
-                        @foreach($otherProducts as $otherProduct)
-                            <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-                                <div class="flex items-end justify-end h-56 w-full bg-cover"
-                                     style="background-image: url('{{ asset('images/kuku/' . $otherProduct->image) }}')">
-                                    <a href="{{ route('admin.kitchen.show', ['id' => $otherProduct->id]) }}"
-                                       class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                                        <i class="fas fa-eye" title="View Product"></i>
-                                    </a>
+                @if(count($orderProducts))
+                    <div class="mt-16">
+                        <h3 class="text-gray-600 text-2xl font-medium">Other Products</h3>
+                        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+                            @foreach($otherProducts as $otherProduct)
+                                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                                         style="background-image: url('{{ asset('images/kuku/' . $otherProduct->image) }}')">
+                                        <a href="{{ route('admin.kitchen.show', ['id' => $otherProduct->id]) }}"
+                                           class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                                            <i class="fas fa-eye" title="View Product"></i>
+                                        </a>
+                                    </div>
+                                    <div class="px-5 py-3">
+                                        <h3 class="text-gray-700 uppercase">{{ $otherProduct->title }}</h3>
+                                        <span class="text-gray-500 mt-2">KES {{ $otherProduct->price }}</span>
+                                    </div>
                                 </div>
-                                <div class="px-5 py-3">
-                                    <h3 class="text-gray-700 uppercase">{{ $otherProduct->title }}</h3>
-                                    <span class="text-gray-500 mt-2">KES {{ $otherProduct->price }}</span>
-                                </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </main>
 
@@ -139,7 +141,9 @@
                     }
                 });
 
-                $('#img-button button').on('click', () => { dropZone.processQueue() });
+                $('#img-button button').on('click', () => {
+                    dropZone.processQueue()
+                });
 
                 if ({{ count($product->productImages) > 0 ? 'true' : 'false' }}) {
                     @foreach($product->productImages as $productImage)
