@@ -22,7 +22,7 @@ class UserController extends Controller
      * @return Response
      */
     public function index(): Response {
-        $data['users'] = User::where('is_admin', '!=', 7)->latest()->paginate(10);
+        $data['users'] = User::where('is_admin', Composer1)->latest()->paginate(10);
 
         return response()->view('admin.users.index', $data);
     }
