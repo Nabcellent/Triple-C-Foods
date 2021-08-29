@@ -163,7 +163,7 @@
 
                                         </tbody>
                                     </table>
-                                    @if(count($orders))
+                                    @if(count($newOrders))
                                         <div class="text-right py-1 px-3">
                                             <small>
                                                 <a class="text-pink-900" href="{{ route('admin.orders.index') }}">
