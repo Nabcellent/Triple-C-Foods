@@ -18,17 +18,13 @@
 <div class="max-w-7xl mx-auto min-h-screen bg-gray-100 shadow relative">
 @include('layouts.navigation')
 
-<!-- Page Heading -->
+    <!-- Page Heading -->
     <header class="bg-red-900">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-white">
-            {{ $header }}
-        </div>
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-white">{{ $header }}</div>
     </header>
 
     <!-- Page Content -->
-    <main>
-        {{ $slot }}
-    </main>
+    <main>{{ $slot }}</main>
 </div>
 
 @include('partials.scripts')

@@ -7,7 +7,7 @@
     <meta name="author" content=""/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }} - Auth</title>
-    <link rel="icon" type="image/jpg" sizes="256x256" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" type="image/jpg" sizes="256x256" href="{{ asset('logo.ico') }}">
 
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>

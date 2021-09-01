@@ -43,6 +43,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request): RedirectResponse {
         $data = $request->all();
+        $data['discount'] = $request->input('discount') ?? 0;
 
         $file = $request->file('image');
         $data['image'] = "foo_" . time() . ".{$file->guessClientExtension()}";
@@ -69,7 +70,7 @@ class ProductController extends Controller
         try {
             $data = [
                 'product' => Product::with('productImages')->findOrFail($id),
-                'otherProducts' => Product::where('id', '<>', $id)->latest()->take(4)->get()
+                'otherProducts' => Product::inRandomOrder()->where('id', '<>', $id)->latest()->take(4)->get()
             ];
 
             return response()->view('admin.products.show', $data);

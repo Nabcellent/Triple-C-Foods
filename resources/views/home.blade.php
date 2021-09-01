@@ -324,8 +324,6 @@
         </div>
         <!-- End Three Column Section -->
 
-        <!-- border -->
-
     </div>
     <!-- End Text Button Sticky -->
 
