@@ -172,10 +172,11 @@
                                             @empty
                                                 <tr>
                                                     <td colspan="5">
-                                                        <div class="text-center my-2">
-                                                            <p>YOU HAVENT MADE YOUR FIRST ORDER YET</p>
-                                                            <a href="{{ route('products.index') }}" class="btn btn-danger"><i
-                                                                    class="fas fa-running">GO SHOPPING</i></a>
+                                                        <div class="text-center my-5">
+                                                            <p>YOU HAVEN'T MADE YOUR FIRST ORDER YET</p>
+                                                            <a href="{{ route('products.index') }}" class="btn btn-danger mt-2">
+                                                                <i class="fas fa-running" style="transform: scaleX(-1)"></i> GO SHOPPING
+                                                            </a>
                                                         </div>
                                                     </td>
                                                 </tr>

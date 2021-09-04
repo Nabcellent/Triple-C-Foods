@@ -83,6 +83,8 @@ class OrderController extends Controller
 
                     $order->orderProducts()->create($item);
                 }
+
+                Session::put('orderNo', $order->order_no);
             });
 
             Session::forget('cart');

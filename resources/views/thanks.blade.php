@@ -8,7 +8,7 @@
                 <div class="card checkout-order-summary">
                     <div class="card-body">
                         <div class="p-3 bg-light mb-4">
-                            <h5 class="font-size-16 mb-0">Thank you <span class="float-end ms-2">Order No. #NFC0124</span></h5>
+                            <h5 class="font-size-16 mb-0">Thank you <span class="float-end ms-2">Order No. {{ Session::get('orderNo') }}</span></h5>
                         </div>
                     </div>
                 </div>

@@ -78,7 +78,9 @@
                 </div>
             @endif
             <div class="row">
-                <div class="pagination">{{ $products->links() }}</div>
+                <div class="col">
+                    <div class="pagination">{{ $products->links() }}</div>
+                </div>
             </div>
         </div>
     </div>
