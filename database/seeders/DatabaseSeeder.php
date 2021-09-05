@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        /*$this->call([
+        $this->call([
             PermissionSeeder::class
         ]);
 
-        User::factory(100)->create();*/
+        User::factory(100)->create();
         Order::factory()->count(100)->create()->each(function($order) {
             OrdersProduct::factory()->count(mt_rand(1, Product::count()))->create([
                 'order_id' => $order->id,
