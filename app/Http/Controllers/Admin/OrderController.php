@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
 use Exception;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -72,7 +73,7 @@ class OrderController extends Controller
 
         try {
             DB::transaction(function() use ($orderData) {
-                $orderData['order_no'] = '#NFC0' . DB::select("SHOW TABLE STATUS LIKE 'orders'")[0]->Auto_increment;
+                $orderData['order_no'] = '#NFC0' . $this->generateOrderNo();
                 $order = Auth::user()->orders()->create($orderData);
 
                 foreach(cartItems() as $id => $item) {
@@ -93,6 +94,13 @@ class OrderController extends Controller
         } catch(Throwable $e) {
             return toastError($e->getMessage(), 'Unable to place order.');
         }
+    }
+
+    public function generateOrderNo(): int {
+        $unique_no = Order::orderByDesc('id')->first()->id;
+        $unique_no++;
+
+        return $unique_no;
     }
 
     /**
